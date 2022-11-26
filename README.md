@@ -6,6 +6,7 @@ Make your own blog with this template!
 
 - Framework : Next.js
 - Style : Tailwindcss
+- CI : Husky
 - Deploy : Vercel
 
 ## Install
@@ -17,5 +18,5 @@ yarn create next-app blog-template --typescript --eslint
 ## Packages
 
 ```sh
-yarn add -D tailwindcss
+yarn add -D prettier tailwindcss postcss prettier-plugin-tailwindcss husky lint-staged
 ```
