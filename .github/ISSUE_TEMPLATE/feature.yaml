@@ -1,0 +1,35 @@
+name: New Feature
+description: If you need to add new feature to this project, select this template.
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: "Answer the questions for your AWESOME IDEA"
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Write your idea's title
+      placeholder: ex. Awesome idea for my cool blog
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Write the details of your idea
+      placeholder: ex. We will create a table of contents to help you understand the structure of your blog post.
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: Select your idea type in the list
+      options:
+        - New function
+        - Feature improvements
+        - Performance improvements
+    validations:
+      required: true
