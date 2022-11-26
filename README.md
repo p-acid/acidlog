@@ -1,4 +1,6 @@
-# Blog Template for Beginner
+# Blog Template for Beginner 📇
+
+Make your own blog with this template!
 
 ## About Template
 
@@ -8,8 +10,12 @@
 
 ## Install
 
----
-
 ```sh
 yarn create next-app blog-template --typescript --eslint
+```
+
+## Packages
+
+```sh
+yarn add -D tailwindcss
 ```
