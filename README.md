@@ -18,5 +18,5 @@ yarn create next-app blog-template --typescript --eslint
 ## Packages
 
 ```sh
-yarn add -D prettier tailwindcss postcss prettier-plugin-tailwindcss husky lint-staged
+yarn add -D prettier tailwindcss postcss autoprefixer prettier-plugin-tailwindcss husky lint-staged
 ```
