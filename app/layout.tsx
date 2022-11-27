@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className='relative flex min-h-screen flex-col items-center gap-4'>
       <Header />
-      <main className='wrapper'>{children}</main>
+      <main className='wrapper w-full'>{children}</main>
       <Footer />
     </div>
   )
