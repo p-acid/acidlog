@@ -30,9 +30,8 @@ a {
   padding-left: 16px;
 }
 
-ul,
-ol > ul,
-ol {
+li > ol,
+li > ul {
   margin-left: 16px;
 }
 
