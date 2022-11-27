@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Post } from '~/interface/common'
+import { Post } from '~/interfaces/common'
 import { getAllPosts } from '~/utils/post'
 import PostItem from './src/ui/PostItem'
 
