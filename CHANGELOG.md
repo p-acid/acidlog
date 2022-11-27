@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.1.0](https://github.com/p-acid/blog-template/compare/v1.0.0...v1.1.0) (2022-11-27)
+
+
+### Features
+
+* Add layout component in app folder ([3e70670](https://github.com/p-acid/blog-template/commit/3e706706f4823c86de2f8aeca6ad987bb172539a))
+* **dashboard:** Add dashboard page ([#4](https://github.com/p-acid/blog-template/issues/4)) ([7feabd4](https://github.com/p-acid/blog-template/commit/7feabd47e8b070e43aa4e7d0b13f8250027da2c4))
+* **detail:** Add post detail page ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+* **layout:** Add layout component ([#2](https://github.com/p-acid/blog-template/issues/2)) ([3e70670](https://github.com/p-acid/blog-template/commit/3e706706f4823c86de2f8aeca6ad987bb172539a))
+* **post-detail:** Add post detail page ([#5](https://github.com/p-acid/blog-template/issues/5)) ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+* **syntaxHighlighter:** Add syntaxHighlighter for react-markdown ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+
+
+### Bug Fixes
+
+* **build:** Fix import error ([453a709](https://github.com/p-acid/blog-template/commit/453a709ed8ca2cf9048e876acfe75dc2044cbd44))
+* **style:** Fix ul, ol style ([660fd35](https://github.com/p-acid/blog-template/commit/660fd359b19e77fa6b75ef516ff4d4ae0b4e8bae))
+
+
+### Others
+
+* Change dashboard page component name to Dashboard ([7feabd4](https://github.com/p-acid/blog-template/commit/7feabd47e8b070e43aa4e7d0b13f8250027da2c4))
+
+
+### Configuration Settings
+
+* **dark-theme:** Add dark theme background color in tailwind config ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+* **markdown:** Add packages for markdown ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+* **tsconfig:** Add custom paths in tsconfig ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+
+
+### Styling
+
+* **dark:** Add global text color in dark mode ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+* **dashboard:** Modify dashboard style ([03cc5cb](https://github.com/p-acid/blog-template/commit/03cc5cb93099e523931962b2cf2f686c5ba886a7))
+* **index-page:** Add text-align center ([3e70670](https://github.com/p-acid/blog-template/commit/3e706706f4823c86de2f8aeca6ad987bb172539a))
+
 ## 1.0.0 (2022-11-26)
 
 
