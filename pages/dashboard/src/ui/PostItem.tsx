@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Post } from '../../../../interface/common'
+import { Post } from '~/interfaces/common'
 
 const PostItem = ({ id, title, description, tags, date }: Post) => {
   return (

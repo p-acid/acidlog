@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import * as remarkHtml from 'remark-html'
 
-import { Post, PostMeta } from '../interface/common'
+import { Post, PostMeta } from '../interfaces/common'
 
 import { differenceInDays } from 'date-fns'
 

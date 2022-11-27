@@ -2,11 +2,13 @@
 title: 'Welcome to your new blog template!'
 date: '2022-11-27'
 description: 'This post is example for my blog template'
-tags: ['release-please', 'release', 'github action', 'change log']
+tags: ['blog', 'how to use', 'guide', 'congraturation']
 thumbnail: 'thumbnail.png'
 ---
 
 # Introduce
+
+---
 
 What is Lorem Ipsum?
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -21,3 +23,73 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
 
 Where can I get some?
 There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+
+# Heading
+
+---
+
+# HeadingFirst
+
+## HeadingSecond
+
+### HeadingThird
+
+#### HeadingFourth
+
+# Image
+
+---
+
+![The moon](/images/posts/welcome/image.jpg)
+
+# Video(mp4)
+
+---
+
+![Capturing photo](/images/posts/welcome/video.mp4)
+
+You can add videos the same way you add images.
+
+# Code
+
+---
+
+It is better to use `let` or `const` rather than `var`.
+
+# Blockquote
+
+---
+
+> This is blockquote tag. It is available via ">"
+
+# Anchor
+
+---
+
+From [Github repository link : This blog template](https://github.com/p-acid/blog-template)
+
+# Preformatted
+
+---
+
+```ts
+export const getData = async () => {
+    const data = await fetch( ... )
+
+    return data
+}
+```
+
+# List
+
+---
+
+- Unordered First thing
+  - hello
+- Unordered Second thing
+- Unordered Third thing
+
+1. Ordered First thing
+   1. hello
+2. Ordered Second thing
+3. Ordered Third thing

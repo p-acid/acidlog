@@ -12,6 +12,10 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+html.dark > body {
+  color: white;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -22,7 +26,14 @@ a {
 }
 
 .wrapper {
-  padding: 0 16px;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+ul,
+ol > ul,
+ol {
+  margin-left: 16px;
 }
 
 @media screen and (min-width: 768px) {

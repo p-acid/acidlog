@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import Footer from '../components/Footer.server'
-import Header from '../components/Header'
+import Footer from '~/components/Footer.server'
+import Header from '~/components/Header'
 
 interface LayoutProps {
   children: ReactNode
@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className='relative flex min-h-screen flex-col items-center gap-4'>
       <Header />
-      <main className='wrapper w-full'>{children}</main>
+      <main className='wrapper min-h-screen w-full'>{children}</main>
       <Footer />
     </div>
   )
