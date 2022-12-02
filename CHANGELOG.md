@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/p-acid/blog-template/compare/v1.2.0...v1.2.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* **seo:** Move NextSeo to outside of Head ([a347092](https://github.com/p-acid/blog-template/commit/a3470925ce0a2b285cc42612d63422e9ae6ca9b3))
+
 ## [1.2.0](https://github.com/p-acid/blog-template/compare/v1.1.1...v1.2.0) (2022-12-02)
 
 
