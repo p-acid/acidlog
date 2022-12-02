@@ -30,7 +30,7 @@ const syntaxHighlighter = {
     )
   },
   hr: ({ ...props }) => (
-    <hr className='border-t-1 my-2 border-gray-500' {...props} />
+    <hr className='border-t-1 my-4 border-gray-500' {...props} />
   ),
   h1: ({ children, ...props }) => (
     <Link href={`#${getPostHeadLinkId(children)}`}>
@@ -112,13 +112,13 @@ const syntaxHighlighter = {
   blockquote: ({ children, ...props }) => (
     <blockquote
       {...props}
-      className='mt-5 mb-6 border-l-2 border-l-zinc-900 py-8 px-10 dark:border-l-white'
+      className='mt-5 mb-6 border-l-2 border-l-zinc-900 py-2 px-6 dark:border-l-white'
     >
       {children}
     </blockquote>
   ),
   a: ({ children, ...props }) => (
-    <a {...props} className='text-blue-900 hover:underline'>
+    <a {...props} className='text-blue-900 hover:underline dark:text-blue-400'>
       {children}
     </a>
   ),

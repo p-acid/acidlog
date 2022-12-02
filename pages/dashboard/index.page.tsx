@@ -17,7 +17,7 @@ export default function Dashboard({ posts }: DashboardProps) {
         <Image src='/banner.png' alt='banner' width={560} height={560} />
       </div>
       <h2 className='pt-8 pb-4 text-4xl font-semibold'>Posts</h2>
-      <ul>
+      <ul className='flex flex-col gap-12'>
         {posts.map((props) => (
           <PostItem key={`post-item-${props.id}`} {...props} />
         ))}

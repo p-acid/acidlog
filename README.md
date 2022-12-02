@@ -20,3 +20,7 @@ yarn create next-app blog-template --typescript --eslint
 ```sh
 yarn add -D prettier tailwindcss postcss autoprefixer prettier-plugin-tailwindcss husky lint-staged
 ```
+
+## We should do,
+
+- [ ] Add Meta Data (for SEO)
