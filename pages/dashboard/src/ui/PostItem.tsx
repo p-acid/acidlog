@@ -16,7 +16,7 @@ const PostItem = ({ id, title, description, tags, date }: Post) => {
           {tags.map((tag) => (
             <li
               key={`post-item-tag-${title}-${tag}`}
-              className='rounded-2xl bg-slate-900 px-3 py-1 text-xs font-light text-gray-100'
+              className='rounded-2xl bg-slate-900 px-3 py-1 text-xs font-light text-gray-100 dark:bg-slate-100 dark:font-normal dark:text-black'
             >
               {tag}
             </li>

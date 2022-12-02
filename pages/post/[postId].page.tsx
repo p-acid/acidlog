@@ -1,3 +1,4 @@
+import DEFAULT_SEO from 'next-seo.config'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { PostMeta } from '~/interfaces/common'
@@ -50,7 +51,12 @@ export async function getStaticProps({
 
   return {
     props: {
-      postDetail
+      postDetail,
+      openGraph: {
+        title: `${postDetail.title} | ${DEFAULT_SEO.title}`,
+        description: postDetail.description,
+        images: [`/images/posts/${postDetail.postId}/${postDetail.thumbnail}`]
+      }
     }
   }
 }
