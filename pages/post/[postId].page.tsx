@@ -15,12 +15,12 @@ const Post = ({
     <article>
       <h1 className='pb-4 text-5xl'>{title}</h1>
       <p className='text-lg'>{description}</p>
-      <div className='flex justify-center py-6'>
+      <div className='flex justify-center py-10'>
         <Image
           src={`/images/posts/${postId}/${thumbnail}`}
           alt={thumbnail}
-          width={560}
-          height={560}
+          width={992}
+          height={992}
         />
       </div>
       <ReactMarkdown components={syntaxHighlighter as any}>
