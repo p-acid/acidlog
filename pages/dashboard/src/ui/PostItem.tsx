@@ -23,8 +23,10 @@ const PostItem = ({ id, title, description, tags, date }: Post) => {
           ))}
         </ul>
         <p className='text-sm font-light'>
-          Updated at
-          <strong className='font-semibold text-lime-900'> {date}</strong>
+          {'Updated at '}
+          <strong className='font-semibold text-lime-900 dark:text-lime-300'>
+            {date}
+          </strong>
         </p>
       </div>
     </li>
