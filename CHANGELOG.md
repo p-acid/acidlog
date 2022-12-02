@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.1](https://github.com/p-acid/blog-template/compare/v1.1.0...v1.1.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* **style:** dark mode & box spacing ([8b9bf10](https://github.com/p-acid/blog-template/commit/8b9bf101644afac141b438aeb8a87af927e22915))
+
+
+### Others
+
+* Release 1.1.1 ([#6](https://github.com/p-acid/blog-template/issues/6)) ([8b9bf10](https://github.com/p-acid/blog-template/commit/8b9bf101644afac141b438aeb8a87af927e22915))
+
+
+### Configuration Settings
+
+* **command:** Add husky install ([8b9bf10](https://github.com/p-acid/blog-template/commit/8b9bf101644afac141b438aeb8a87af927e22915))
+
 ## [1.1.0](https://github.com/p-acid/blog-template/compare/v1.0.0...v1.1.0) (2022-11-27)
 
 
