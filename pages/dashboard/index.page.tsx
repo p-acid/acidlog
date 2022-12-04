@@ -11,9 +11,6 @@ export default function Dashboard({ posts }: DashboardProps) {
   return (
     <section className='flex w-full flex-col gap-4'>
       <div className='flex flex-col items-center'>
-        <h1 className='pt-8 text-center text-5xl font-bold'>
-          Welcome to New Blog 🎉
-        </h1>
         <Image src='/banner.png' alt='banner' width={560} height={560} />
       </div>
       <h2 className='pt-8 pb-4 text-4xl font-semibold'>Posts</h2>
