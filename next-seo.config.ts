@@ -1,12 +1,12 @@
 import { DefaultSeoProps } from 'next-seo'
 
 const config: DefaultSeoProps = {
-  title: 'My awesome blog',
-  description: 'Introduce your awesome blog!',
+  title: 'Devlog',
+  description: '개발자 박산성입니다. 정돈된 글을 위해 노력합니다.',
   openGraph: {
     type: 'website',
-    title: 'My awesome blog',
-    description: 'Introduce your awesome blog',
+    title: 'Devlog',
+    description: '개발자 박산성입니다. 정돈된 글을 위해 노력합니다.',
     images: [
       {
         url: '/banner.png',
@@ -14,9 +14,6 @@ const config: DefaultSeoProps = {
       }
     ],
     siteName: 'My Blog'
-  },
-  twitter: {
-    cardType: 'summary'
   }
 }
 
