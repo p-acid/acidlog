@@ -5,14 +5,14 @@ const PostItem = ({ id, title, description, tags, date }: Post) => {
   return (
     <li className='flex flex-col gap-2'>
       <Link
-        className='text-2xl font-medium hover:underline'
+        className='break-keep text-2xl font-medium hover:underline'
         href={`/post/${id}`}
       >
         {title}
       </Link>
-      <p className='text-md font-normal'>{description}</p>
-      <div className='flex items-end justify-between pt-8'>
-        <ul className='flex gap-2'>
+      <p className='text-md break-keep font-normal'>{description}</p>
+      <div className='flex items-end justify-between pt-2 sm:pt-4'>
+        <ul className='hidden gap-2 sm:flex'>
           {tags.map((tag) => (
             <li
               key={`post-item-tag-${title}-${tag}`}
@@ -22,7 +22,7 @@ const PostItem = ({ id, title, description, tags, date }: Post) => {
             </li>
           ))}
         </ul>
-        <p className='text-sm font-light'>
+        <p className='text-sm font-light '>
           {'Updated at '}
           <strong className='font-semibold text-lime-900 dark:text-lime-300'>
             {date}

@@ -14,8 +14,8 @@ const Post = ({
 }: PostProps) => {
   return (
     <article>
-      <h1 className='pb-4 text-5xl'>{title}</h1>
-      <p className='text-lg'>{description}</p>
+      <h1 className='pb-4 text-3xl font-semibold sm:text-5xl'>{title}</h1>
+      <p className='text-lg text-gray-800 dark:text-gray-300'>{description}</p>
       <div className='flex justify-center py-10'>
         <Image
           src={`/images/posts/${postId}/${thumbnail}`}

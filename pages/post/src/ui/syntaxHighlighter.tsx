@@ -35,7 +35,7 @@ const syntaxHighlighter = {
   h1: ({ children, ...props }) => (
     <Link href={`#${getPostHeadLinkId(children)}`}>
       <h1
-        className={`${COMMON_STYLE.heading} text-4xl`}
+        className={`${COMMON_STYLE.heading} text-3xl sm:text-4xl`}
         {...props}
         id={getPostHeadLinkId(children)}
       >
@@ -47,7 +47,7 @@ const syntaxHighlighter = {
     <Link href={`#${getPostHeadLinkId(children)}`}>
       <h2
         {...props}
-        className={`${COMMON_STYLE.heading} text-3xl`}
+        className={`${COMMON_STYLE.heading} text-2xl sm:text-3xl`}
         id={getPostHeadLinkId(children)}
       >
         {children}
@@ -58,7 +58,7 @@ const syntaxHighlighter = {
     <Link href={`#${getPostHeadLinkId(children)}`}>
       <h3
         {...props}
-        className={`${COMMON_STYLE.heading} text-2xl`}
+        className={`${COMMON_STYLE.heading} text-xl sm:text-2xl`}
         id={getPostHeadLinkId(children)}
       >
         {children}
@@ -69,7 +69,7 @@ const syntaxHighlighter = {
     <Link href={`#${getPostHeadLinkId(children)}`}>
       <h4
         {...props}
-        className={`${COMMON_STYLE.heading} text-xl`}
+        className={`${COMMON_STYLE.heading} text-lg sm:text-xl`}
         id={getPostHeadLinkId(children)}
       >
         {children}
