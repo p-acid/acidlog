@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.2](https://github.com/p-acid/blog-template/compare/v1.2.1...v1.2.2) (2022-12-07)
+
+
+### Styling
+
+* **mobile:** Add reponsive ([#11](https://github.com/p-acid/blog-template/issues/11)) ([67bb30e](https://github.com/p-acid/blog-template/commit/67bb30eda402a2f002996445294ac002de0400f9))
+* **post-detail:** Add mobile responsive ([67bb30e](https://github.com/p-acid/blog-template/commit/67bb30eda402a2f002996445294ac002de0400f9))
+* **post-item:** Add mobile responsive ([67bb30e](https://github.com/p-acid/blog-template/commit/67bb30eda402a2f002996445294ac002de0400f9))
+
 ## [1.2.1](https://github.com/p-acid/blog-template/compare/v1.2.0...v1.2.1) (2022-12-02)
 
 
