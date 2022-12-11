@@ -23,4 +23,6 @@ yarn add -D prettier tailwindcss postcss autoprefixer prettier-plugin-tailwindcs
 
 ## We should do,
 
-- [ ] Add Meta Data (for SEO)
+- [x] Add Meta Data (for SEO)
+- [ ] Add comment function by Guthub
+- [ ] Add Table of Contents
