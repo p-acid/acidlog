@@ -21,6 +21,12 @@ yarn create next-app blog-template --typescript --eslint
 yarn add -D prettier tailwindcss postcss autoprefixer prettier-plugin-tailwindcss husky lint-staged
 ```
 
+## How to set Utterance
+
+- [utterances](https://utteranc.es/)
+
 ## We should do,
 
-- [ ] Add Meta Data (for SEO)
+- [x] Add Meta Data (for SEO)
+- [x] Add comment function by utterance
+- [ ] Add Table of Contents

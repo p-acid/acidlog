@@ -1,9 +1,15 @@
 import DEFAULT_SEO from 'next-seo.config'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
+
 import { PostMeta } from '~/interfaces/common'
 import { getAllPostPaths, getPostData } from '~/utils/post'
 import syntaxHighlighter from './src/ui/syntaxHighlighter'
+
+const DynamicComments = dynamic(() => import('../../components/Comments'), {
+  ssr: false
+})
 
 interface PostProps {
   postDetail: PostMeta
@@ -31,6 +37,8 @@ const Post = ({
       <ReactMarkdown components={syntaxHighlighter as any}>
         {contentHtml}
       </ReactMarkdown>
+      <div className='py-8' />
+      <DynamicComments />
     </article>
   )
 }
