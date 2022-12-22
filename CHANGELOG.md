@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.3.0](https://github.com/p-acid/blog-template/compare/v1.2.2...v1.3.0) (2022-12-22)
+
+
+### Features
+
+* **github-comment:** Add utterance ([#15](https://github.com/p-acid/blog-template/issues/15)) ([73fb87c](https://github.com/p-acid/blog-template/commit/73fb87c585661d5a64fefa67fe7a0c8388183024))
+
+
+### Styling
+
+* **mobile:** Fix word-break ([c081ee1](https://github.com/p-acid/blog-template/commit/c081ee1d8c9279e1b77b7d4ceb7eab24628b4df9))
+
+
+### Docs
+
+* **README:** Add we-should-do ([79b2c6b](https://github.com/p-acid/blog-template/commit/79b2c6bb54d5686c517f0237342576afb6eeacb0))
+
 ## [1.2.2](https://github.com/p-acid/blog-template/compare/v1.2.1...v1.2.2) (2022-12-07)
 
 
