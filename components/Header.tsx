@@ -26,7 +26,7 @@ const Header = () => {
   )
 
   return (
-    <nav className='wrapper sticky top-0 z-10 flex w-full items-center justify-between bg-white py-4 dark:bg-dark'>
+    <nav className='wrapper sticky top-0 z-10 flex w-full items-center justify-between bg-white py-4 transition duration-300 dark:bg-dark'>
       <a href={'/'} className='text-3xl'>
         {META_CONFIG.title}
       </a>

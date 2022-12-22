@@ -12,8 +12,17 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+html.light > body {
+  background-color: white;
+}
+
 html.dark > body {
+  background-color: #121212;
   color: white;
+}
+
+body {
+  transition: background-color 0.3s;
 }
 
 a {
