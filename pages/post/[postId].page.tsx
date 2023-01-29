@@ -28,6 +28,7 @@ const Post = ({
       </p>
       <div className='flex justify-center py-10'>
         <Image
+          className='max-h-[400px] object-cover'
           src={`/images/posts/${postId}/${thumbnail}`}
           alt={thumbnail}
           width={992}
