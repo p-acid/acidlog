@@ -6,8 +6,8 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { getPostHeadLinkId, validFileExtension } from '~/utils/post'
 
 const COMMON_STYLE = {
-  heading: 'mt-10 mb-6',
-  media: 'w-full max-w-xl',
+  heading: 'mt-12 mb-6',
+  media: 'w-full max-h-[600px] max-w-xl',
   list: 'flex flex-col gap-1 mb-6 list-inside'
 }
 
@@ -81,6 +81,11 @@ const syntaxHighlighter = {
       {children}
     </p>
   ),
+  em: ({ children, ...props }) => (
+    <em {...props} className='mr-1'>
+      {children}
+    </em>
+  ),
   strong: ({ children, ...props }) => (
     <strong {...props} className='font-medium'>
       {children}
@@ -98,7 +103,7 @@ const syntaxHighlighter = {
         ) : (
           <Image
             {...props}
-            className={`${COMMON_STYLE.media} h-full object-cover`}
+            className={`${COMMON_STYLE.media} object-contain`}
             src={src}
             alt={alt}
             width={560}
@@ -112,7 +117,7 @@ const syntaxHighlighter = {
   blockquote: ({ children, ...props }) => (
     <blockquote
       {...props}
-      className='mt-5 mb-6 border-l-2 border-l-zinc-900 py-2 px-6 dark:border-l-white'
+      className='mt-5 mb-8 border-l-2 border-l-zinc-900 py-2 px-6 dark:border-l-white [&>*:last-of-type]:mb-0'
     >
       {children}
     </blockquote>
@@ -140,7 +145,7 @@ const syntaxHighlighter = {
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li {...props} className='text-lg font-light'>
+    <li {...props} className='text-lg font-light [&>ul]:mb-2 [&>ol]:mb-2'>
       {children}
     </li>
   )
