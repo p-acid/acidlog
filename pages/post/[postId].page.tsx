@@ -1,10 +1,11 @@
+import { CalendarIcon } from '@heroicons/react/24/solid'
 import DEFAULT_SEO from 'next-seo.config'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
 import { PostMeta } from '~/interfaces/common'
-import { getAllPostPaths, getPostData } from '~/utils/post'
+import { getAllPostPaths, getKoreanDate, getPostData } from '~/utils/post'
 import syntaxHighlighter from './src/ui/syntaxHighlighter'
 
 const DynamicComments = dynamic(() => import('../../components/Comments'), {
@@ -16,16 +17,20 @@ interface PostProps {
 }
 
 const Post = ({
-  postDetail: { postId, title, description, contentHtml, thumbnail }
+  postDetail: { postId, title, date, description, contentHtml, thumbnail }
 }: PostProps) => {
   return (
     <article>
-      <h1 className='break-keep pb-4 text-3xl font-semibold sm:text-5xl'>
+      <h1 className='break-keep pb-5 text-3xl font-semibold sm:text-5xl'>
         {title}
       </h1>
-      <p className='break-keep text-lg text-gray-800 dark:text-gray-300'>
+      <span className='break-keep text-xl text-gray-800 dark:text-gray-300'>
         {description}
-      </p>
+      </span>
+      <span className='text-md flex items-center gap-2 break-keep pt-5 font-normal text-gray-600 dark:text-gray-400'>
+        <CalendarIcon className='h-5' />
+        {getKoreanDate(new Date(date))}
+      </span>
       <div className='flex justify-center py-10'>
         <Image
           className='max-h-[400px] object-cover'

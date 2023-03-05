@@ -6,7 +6,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { getPostHeadLinkId, validFileExtension } from '~/utils/post'
 
 const COMMON_STYLE = {
-  heading: 'mt-12 mb-6',
+  heading: 'mt-12 mb-6 font-semibold',
   media: 'w-full max-h-[600px] max-w-xl',
   list: 'flex flex-col gap-1 mb-6 list-inside'
 }
@@ -87,7 +87,7 @@ const syntaxHighlighter = {
     </em>
   ),
   strong: ({ children, ...props }) => (
-    <strong {...props} className='font-medium'>
+    <strong {...props} className='font-medium dark:text-lime-200'>
       {children}
     </strong>
   ),
@@ -117,7 +117,7 @@ const syntaxHighlighter = {
   blockquote: ({ children, ...props }) => (
     <blockquote
       {...props}
-      className='mt-5 mb-8 border-l-2 border-l-zinc-900 py-2 px-6 dark:border-l-white [&>*:last-of-type]:mb-0'
+      className='mt-5 mb-8 border-l-2 border-l-zinc-900 py-2 px-6 text-zinc-700 dark:border-l-white dark:text-zinc-300 [&>*:last-of-type]:mb-0'
     >
       {children}
     </blockquote>

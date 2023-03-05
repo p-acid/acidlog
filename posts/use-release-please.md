@@ -29,7 +29,7 @@ thumbnail: 'thumbnail.jpeg'
 
 우선 이번 적용 내용의 기본이 되는 **컨벤셔널 커밋**은 **커밋 메시지에 곁들이는 가벼운 컨벤션**으로, 명확한 커밋 히스토리 생성을 위한 간단한 규칙을 제공합니다.
 
-본 컨벤션의 내용 중 [**유의적 버전**](https://semver.org/lang/ko/)과 연관이 있는 부분은 주로 **공유 라이브러리**를 기준으로 되었다고 판단되어 유의적 버전에 대한 내용은 서비스 외 패키지에만 적용하도록 하고, 컨벤셔널 커밋의 작성 방식만을 적용하기로 했습니다.
+본 컨벤션의 내용 중 [유의적 버전](https://semver.org/lang/ko/)과 연관이 있는 부분은 주로 **공유 라이브러리**를 기준으로 되었다고 판단되어 유의적 버전에 대한 내용은 서비스 외 패키지에만 적용하도록 하고, 컨벤셔널 커밋의 작성 방식만을 적용하기로 했습니다.
 
 ## 기본 구조
 
@@ -50,9 +50,9 @@ thumbnail: 'thumbnail.jpeg'
 - `fix` : 코드베이스에서 **버그 패치**의 기능을 하는 커밋
 - `feat` : 코드베이스에서 **새 기능이 추가**되는 커밋
 - `BREAKING CHANGE` / `<type>!` 혹은 `<scope>!` : **단절적 API 변경**이 있다는 것을 의미합니다.
-- 이외에도, **다른 타입**들이 허용되며 [**이어지는 `release-please` 과 관련된 내용**](https://www.notion.so/a137090b9bc2407eb22706ac4675d382)에서 확인하실 수 있습니다.
+- 이외에도, **다른 타입**들이 허용되며 [이어지는 `release-please` 과 관련된 내용](https://www.notion.so/a137090b9bc2407eb22706ac4675d382)에서 확인하실 수 있습니다.
 
-> 자세한 예시는 [**컨벤셔널 커밋 예제**](https://www.conventionalcommits.org/ko/v1.0.0/#%EC%98%88%EC%A0%9C)를 참고바랍니다.
+> 자세한 예시는 [컨벤셔널 커밋 예제](https://www.conventionalcommits.org/ko/v1.0.0/#%EC%98%88%EC%A0%9C)를 참고바랍니다.
 
 ## 추가 타입
 
@@ -112,7 +112,7 @@ yarn add -D standard-version
 }
 ```
 
-해당 명령어는 다음과 같이 활용할 수 있으며, 버전 업데이트를 [**유의적 버전**](https://semver.org/)에 기반하여 진행할 수도 있습니다.
+해당 명령어는 다음과 같이 활용할 수 있으며, 버전 업데이트를 [유의적 버전](https://semver.org/)에 기반하여 진행할 수도 있습니다.
 
 ```sh
 # initial release
@@ -135,7 +135,7 @@ yarn standard-version --release-as [version-to-release]
 
 ---
 
-[**`release-please`**](https://github.com/googleapis/release-please) 는 구글에서 만든 릴리즈 버전 관리 서비스이며 다음의 역할을 수행합니다.
+[`release-please`](https://github.com/googleapis/release-please) 는 구글에서 만든 릴리즈 버전 관리 서비스이며 다음의 역할을 수행합니다.
 
 - **`CHANGELOG`** 를 생성하고 업데이트 합니다.
 - **Git Tag**와 **Github Releases**를 생성합니다.
