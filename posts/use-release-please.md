@@ -2,7 +2,7 @@
 title: 'release-please를 통해 배포 기록 어썸하게 관리하기'
 date: '2022-11-23'
 description: '커밋 컨벤션으로 시작해서 CHANGELOG 업데이트 동기화까지'
-tags: ['release-please', 'release', 'github-action', 'change-log']
+tags: ['release-please', 'release', 'GitHub Action', 'CHANGELOG']
 thumbnail: 'thumbnail.jpg'
 ---
 
