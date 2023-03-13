@@ -87,7 +87,7 @@ const syntaxHighlighter = {
     </em>
   ),
   strong: ({ children, ...props }) => (
-    <strong {...props} className='font-medium dark:text-lime-200'>
+    <strong {...props} className='font-medium dark:font-semibold'>
       {children}
     </strong>
   ),
