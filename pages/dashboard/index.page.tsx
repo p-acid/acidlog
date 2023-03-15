@@ -11,7 +11,13 @@ export default function Dashboard({ posts }: DashboardProps) {
   return (
     <section className='flex w-full flex-col gap-4'>
       <div className='flex flex-col items-center'>
-        <Image src='/banner.png' alt='banner' width={560} height={560} />
+        <Image
+          className='pb-8'
+          src='/banner.png'
+          alt='banner'
+          width={560}
+          height={560}
+        />
       </div>
       <h2 className='pt-8 pb-4 text-4xl font-semibold'>Posts</h2>
       <ul className='flex flex-col gap-12'>

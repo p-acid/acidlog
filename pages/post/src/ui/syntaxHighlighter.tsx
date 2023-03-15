@@ -77,7 +77,7 @@ const syntaxHighlighter = {
     </Link>
   ),
   p: ({ children, ...props }) => (
-    <p {...props} className='mb-8 text-lg font-light'>
+    <p {...props} className='text-md mb-8 font-light sm:text-lg'>
       {children}
     </p>
   ),
@@ -87,7 +87,7 @@ const syntaxHighlighter = {
     </em>
   ),
   strong: ({ children, ...props }) => (
-    <strong {...props} className='font-medium dark:font-semibold'>
+    <strong {...props} className='font-medium'>
       {children}
     </strong>
   ),
@@ -117,7 +117,7 @@ const syntaxHighlighter = {
   blockquote: ({ children, ...props }) => (
     <blockquote
       {...props}
-      className='mt-5 mb-8 border-l-2 border-l-zinc-900 py-2 px-6 text-zinc-700 dark:border-l-white dark:text-zinc-300 [&>*:last-of-type]:mb-0'
+      className='mt-5 mb-8 border-l-2 border-l-zinc-900 py-2 px-6 text-zinc-700 dark:border-l-white dark:text-zinc-300 [&>*:last-child]:mb-0 [&>*:first-child>*]:mt-0'
     >
       {children}
     </blockquote>
@@ -145,7 +145,10 @@ const syntaxHighlighter = {
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li {...props} className='text-lg font-light [&>ul]:mb-2 [&>ol]:mb-2'>
+    <li
+      {...props}
+      className='text-md font-light sm:text-lg [&>ul]:mb-2 [&>ol]:mb-2'
+    >
       {children}
     </li>
   )
