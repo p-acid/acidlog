@@ -1,6 +1,6 @@
 ---
 title: 배워봅시다, SvelteKit
-date: '2023-03-15'
+date: '2023-03-25'
 description: 근데 넌 모르잖아, SvelteKit 세상
 tags: ['SvelteKit', 'Svelte', '프레임워크', '튜토리얼']
 thumbnail: 'thumbnail.png'
