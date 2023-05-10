@@ -77,9 +77,9 @@ const syntaxHighlighter = {
     </Link>
   ),
   p: ({ children, ...props }) => (
-    <p {...props} className='text-md mb-8 font-light sm:text-lg'>
+    <div {...props} className='text-md mb-8 font-light sm:text-lg'>
       {children}
-    </p>
+    </div>
   ),
   em: ({ children, ...props }) => (
     <em {...props} className='mr-1'>
@@ -110,7 +110,7 @@ const syntaxHighlighter = {
             height={350}
           />
         )}
-        {alt && <p className='text-light text-sm'>{alt}</p>}
+        {alt && <span className='text-light text-sm'>{alt}</span>}
       </div>
     )
   },

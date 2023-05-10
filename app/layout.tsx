@@ -8,9 +8,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className='relative flex min-h-screen flex-col items-center gap-4'>
+    <div className='wrapper relative mx-auto flex min-h-screen flex-col items-center gap-4 md:w-[768px]'>
       <Header />
-      <main className='wrapper min-h-screen w-full'>{children}</main>
+      <main className='min-h-screen w-full px-4'>{children}</main>
       <Footer />
     </div>
   )

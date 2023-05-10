@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Post } from '~/interfaces/common'
+import { META_CONFIG } from '~/lib/config/blog'
 import { getAllPosts } from '~/utils/post'
 import PostItem from './src/ui/PostItem'
 
@@ -10,16 +11,7 @@ interface DashboardProps {
 export default function Dashboard({ posts }: DashboardProps) {
   return (
     <section className='flex w-full flex-col gap-4'>
-      <div className='flex flex-col items-center'>
-        <Image
-          className='pb-8'
-          src='/banner.png'
-          alt='banner'
-          width={560}
-          height={560}
-        />
-      </div>
-      <h2 className='pt-8 pb-4 text-4xl font-semibold'>Posts</h2>
+      <h2 className='py-8 text-5xl font-semibold'>Blog.</h2>
       <ul className='flex flex-col gap-12'>
         {posts.map((props) => (
           <PostItem key={`post-item-${props.id}`} {...props} />

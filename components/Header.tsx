@@ -27,8 +27,8 @@ const Header = () => {
   )
 
   return (
-    <nav className='sticky top-0 z-10 flex w-full items-center justify-between bg-white p-4 transition duration-300 dark:bg-zinc-800'>
-      <a href={DASHBOARD} className='text-3xl'>
+    <nav className='flex w-full items-center justify-between bg-white px-4 py-5 dark:bg-zinc-800'>
+      <a href={DASHBOARD} className='text-4xl font-bold tracking-tight'>
         {META_CONFIG.title}
       </a>
       <button onClick={switchTheme}>

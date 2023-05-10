@@ -1,10 +1,11 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true
   },
-  webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false }
 
