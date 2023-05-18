@@ -27,9 +27,10 @@ const Header = () => {
   )
 
   return (
-    <nav className='flex w-full items-center justify-between bg-white px-4 py-5 dark:bg-zinc-800'>
+    <nav className='flex w-full items-center justify-between px-4 py-7'>
       <a href={DASHBOARD} className='text-4xl font-bold tracking-tight'>
         {META_CONFIG.title}
+        <span className='text-lime-500 dark:text-lime-300'>.log</span>
       </a>
       <button onClick={switchTheme}>
         <ThemeIcon className='h-7 w-7' />

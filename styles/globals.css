@@ -14,7 +14,7 @@ body {
 }
 
 html.light > body {
-  @apply bg-white text-zinc-900;
+  @apply bg-white text-zinc-700;
 }
 
 html.dark > body {
@@ -29,9 +29,8 @@ html.dark a > strong {
   @apply text-blue-400;
 }
 
-body,
-nav {
-  @apply transition duration-300;
+body {
+  @apply transition-colors duration-500;
 }
 
 a {
