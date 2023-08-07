@@ -10,7 +10,7 @@ const PostItem = ({ id, title, description, tags, date }: Post) => {
       >
         {title}
       </Link>
-      <p className='text-md break-keep font-normal'>{description}</p>
+      <p className='text-md break-keep font-light'>{description}</p>
       <div className='flex items-end justify-between pt-2 sm:pt-4'>
         <ul className='hidden gap-2 sm:flex'>
           {tags.map((tag) => (
