@@ -2,8 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Prism as ReactSyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-
-import { getPostHeadLinkId, validFileExtension } from '~/utils/post'
+import { validFileExtension } from '~/utils/file'
 
 const COMMON_STYLE = {
   heading: 'mt-12 mb-6 font-semibold',
@@ -155,3 +154,9 @@ const syntaxHighlighter = {
 }
 
 export default syntaxHighlighter
+
+const getPostHeadLinkId = (children: string[]) => {
+  if (typeof children[0] !== 'string') return
+
+  return children[0].replace(' ', '-')
+}

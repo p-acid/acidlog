@@ -5,7 +5,9 @@ import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
 import { PostMeta } from '~/interfaces/common'
-import { getAllPostPaths, getKoreanDate, getPostData } from '~/utils/post'
+import { FILE_PATH } from '~/lib/config/path'
+import { getKoreanDate } from '~/utils/date'
+import { getMarkdownContent, getPaths } from '~/utils/markdown'
 import syntaxHighlighter from './src/ui/syntaxHighlighter'
 
 const DynamicComments = dynamic(() => import('../../components/Comments'), {
@@ -52,7 +54,7 @@ const Post = ({
 export default Post
 
 export async function getStaticPaths() {
-  const allPostsPaths = getAllPostPaths()
+  const allPostsPaths = getPaths(FILE_PATH.post, 'postId')
 
   return {
     paths: allPostsPaths,
@@ -65,7 +67,7 @@ export async function getStaticProps({
 }: {
   params: { postId: string }
 }) {
-  const postDetail = await getPostData(params.postId)
+  const postDetail = await getMarkdownContent(FILE_PATH.post, params.postId)
 
   return {
     props: {
@@ -73,7 +75,7 @@ export async function getStaticProps({
       openGraph: {
         title: `${postDetail.title} | ${DEFAULT_SEO.title}`,
         description: postDetail.description,
-        images: [`/images/posts/${postDetail.postId}/${postDetail.thumbnail}`]
+        images: [`/images/posts/${postDetail.filename}/${postDetail.thumbnail}`]
       }
     }
   }

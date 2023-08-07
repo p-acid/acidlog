@@ -1,5 +1,7 @@
 import { Post } from '~/interfaces/common'
-import { getAllPosts } from '~/utils/post'
+import { FILE_PATH } from '~/lib/config/path'
+import { getMetas } from '~/utils/markdown'
+
 import PostItem from './src/ui/PostItem'
 
 interface DashboardProps {
@@ -22,7 +24,7 @@ export default function Dashboard({ posts }: DashboardProps) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getAllPosts()
+  const allPostsData = getMetas(FILE_PATH.post)
   return {
     props: {
       posts: allPostsData
