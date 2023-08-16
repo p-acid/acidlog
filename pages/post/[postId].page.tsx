@@ -19,7 +19,7 @@ interface PostProps {
 }
 
 const Post = ({
-  postDetail: { id, title, date, description, contentHtml, thumbnail }
+  postDetail: { filename, title, date, description, contentHtml, thumbnail }
 }: PostProps) => {
   return (
     <article>
@@ -36,7 +36,7 @@ const Post = ({
       <div className='flex justify-center py-10'>
         <Image
           className='max-h-[400px] object-cover'
-          src={`/images/posts/${id}/${thumbnail}`}
+          src={`/images/posts/${filename}/${thumbnail}`}
           alt={thumbnail}
           width={992}
           height={992}
