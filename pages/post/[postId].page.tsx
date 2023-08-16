@@ -23,17 +23,19 @@ const Post = ({
 }: PostProps) => {
   return (
     <article>
-      <h1 className='break-keep pb-5 text-3xl font-semibold sm:text-5xl'>
-        {title}
-      </h1>
-      <span className='break-keep text-xl text-gray-800 dark:text-gray-300'>
-        {description}
-      </span>
-      <span className='text-md flex items-center gap-2 break-keep pt-5 font-normal text-gray-600 dark:text-gray-400'>
-        <CalendarIcon className='h-5' />
-        {getKoreanDate(new Date(date))}
-      </span>
-      <div className='flex justify-center py-10'>
+      <div className='flex flex-col items-center'>
+        <h1 className='break-keep pt-[10%] pb-8 text-center text-3xl font-semibold sm:text-5xl'>
+          {title}
+        </h1>
+        <span className='break-keep pb-2 text-center text-lg text-gray-500 dark:text-gray-300'>
+          {description}
+        </span>
+        <span className='flex items-center gap-2 break-keep text-sm font-normal text-gray-600 dark:text-gray-400'>
+          <CalendarIcon className='h-5' />
+          {getKoreanDate(new Date(date))}
+        </span>
+      </div>
+      <div className='flex justify-center py-[20%]'>
         <Image
           className='max-h-[400px] object-cover'
           src={`/images/posts/${filename}/${thumbnail}`}
