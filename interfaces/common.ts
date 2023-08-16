@@ -8,8 +8,7 @@ export interface Post {
   index: number
 }
 
-export interface PostMeta extends Post {
-  postId: string
+export interface PostDetail extends Post {
+  filename: string
   contentHtml: string
-  tocHtml: string
 }

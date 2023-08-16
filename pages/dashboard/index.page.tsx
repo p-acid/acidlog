@@ -24,7 +24,7 @@ export default function Dashboard({ posts }: DashboardProps) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getMetas(FILE_PATH.post)
+  const allPostsData = getMetas<Post>(FILE_PATH.post)
   return {
     props: {
       posts: allPostsData

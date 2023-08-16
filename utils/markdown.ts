@@ -3,15 +3,12 @@ import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import * as remarkHtml from 'remark-html'
-
-import { Post, PostMeta } from '../interfaces/common'
-
-import { differenceInDays } from 'date-fns'
-
 /**
  * 해당하는 경로 내 모든 마크다운 파일의 메타데이터 배열 반환
  */
-export const getMetas = (route: string): PostMeta[] => {
+export const getMetas = <M = { id: string; [key: string]: any }>(
+  route: string
+) => {
   const fileNames = fs.readdirSync(route)
 
   const allPostsData = fileNames.map((fileName) => {
@@ -26,14 +23,10 @@ export const getMetas = (route: string): PostMeta[] => {
     return {
       id,
       ...matterResult.data
-    } as PostMeta
+    } as M
   })
 
-  const sortedPostList = allPostsData.sort((a: PostMeta, b: PostMeta) =>
-    differenceInDays(new Date(b.date), new Date(a.date))
-  )
-
-  return sortedPostList
+  return allPostsData
 }
 
 /**
@@ -55,7 +48,9 @@ export const getPaths = (route: string, path: string) => {
 /**
  * 마크다운 메타데이터 및 콘텐츠 반환
  */
-export async function getMarkdownContent(route: string, filename: string) {
+export async function getMarkdownContent<
+  D = { filename: string; contentHtml: string; [key: string]: any }
+>(route: string, filename: string) {
   const fullPath = path.join(route, `${filename}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
@@ -70,6 +65,6 @@ export async function getMarkdownContent(route: string, filename: string) {
   return {
     filename,
     contentHtml,
-    ...(matterResult.data as Post)
-  }
+    ...matterResult.data
+  } as D
 }

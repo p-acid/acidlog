@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
-import { PostMeta } from '~/interfaces/common'
+import { PostDetail } from '~/interfaces/common'
 import { FILE_PATH } from '~/lib/config/path'
 import { getKoreanDate } from '~/utils/date'
 import { getMarkdownContent, getPaths } from '~/utils/markdown'
@@ -15,11 +15,11 @@ const DynamicComments = dynamic(() => import('../../components/Comments'), {
 })
 
 interface PostProps {
-  postDetail: PostMeta
+  postDetail: PostDetail
 }
 
 const Post = ({
-  postDetail: { postId, title, date, description, contentHtml, thumbnail }
+  postDetail: { id, title, date, description, contentHtml, thumbnail }
 }: PostProps) => {
   return (
     <article>
@@ -36,7 +36,7 @@ const Post = ({
       <div className='flex justify-center py-10'>
         <Image
           className='max-h-[400px] object-cover'
-          src={`/images/posts/${postId}/${thumbnail}`}
+          src={`/images/posts/${id}/${thumbnail}`}
           alt={thumbnail}
           width={992}
           height={992}
@@ -67,7 +67,10 @@ export async function getStaticProps({
 }: {
   params: { postId: string }
 }) {
-  const postDetail = await getMarkdownContent(FILE_PATH.post, params.postId)
+  const postDetail = await getMarkdownContent<PostDetail>(
+    FILE_PATH.post,
+    params.postId
+  )
 
   return {
     props: {
