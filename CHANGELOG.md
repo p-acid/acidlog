@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/p-acid/acidlog/compare/v1.1.1...v1.1.2) (2023-10-31)
+
+
+### Docs
+
+* Edge Store 리뷰 ([ef05655](https://github.com/p-acid/acidlog/commit/ef05655f1e31dda708516336dd3d5b886bd29f73))
+* 이미지 추가 ([c6aba26](https://github.com/p-acid/acidlog/commit/c6aba267c6532895877844fc44c16189928fec8f))
+
 ## 1.1.1 (2023-08-16)
 
 
