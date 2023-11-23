@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PostProps) {
   const base = `${Source.Image.Post}/${post.slugAsParams}`;
 
   return (
-    <article className="py-6 prose dark:prose-invert">
+    <article className="py-6 prose prose-emerald dark:prose-invert">
       <h1 className="mb-2">{post.title}</h1>
 
       {post.description && (

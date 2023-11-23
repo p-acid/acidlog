@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="prose prose-sky dark:prose-invert">
+    <main className="prose prose-emerald dark:prose-invert">
       <h1 className="pt-6">Post</h1>
 
       {allPosts.map((post) => (
