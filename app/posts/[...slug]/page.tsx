@@ -6,6 +6,7 @@ import { allPosts } from "@/.contentlayer/generated";
 import MdxImage from "@/components/mdx-image";
 import { Mdx } from "@/components/mdx-components";
 import { Source } from "@/lib/route";
+import Image from "next/image";
 
 interface PostProps {
   params: {
@@ -64,7 +65,13 @@ export default async function PostPage({ params }: PostProps) {
       )}
 
       {post.thumbnail && (
-        <MdxImage base={base} fileName={post.thumbnail ?? ""} />
+        <Image
+          className="w-full h-[400px] object-cover"
+          src={`${base}/${post.thumbnail}`}
+          alt="thumbnail"
+          width={680}
+          height={400}
+        />
       )}
 
       <Mdx

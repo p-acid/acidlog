@@ -1,0 +1,168 @@
+---
+title: "Git flow, 왜 적용했나요?"
+date: "2023-01-28"
+description: "우리들 프로젝트의 Git flow는 잘 흘러가고 있나요?"
+thumbnail: "thumbnail.jpg"
+---
+
+<br />
+
+# 들어가며
+
+안녕하세요, 오늘은 프로젝트를 운영하는데 필요한 **브랜치 전략**과 관련된 이야기를 해볼까 합니다. 우리는 프로젝트를 진행하면서 VSC(Verson Control System)로 대부분 **Git**을 채택하고 있으며, 이를 위해 브랜치 관리 전략을 수립하여 협업에 유리한 환경을 만들고 있을 것입니다.
+
+그리고 브랜치 관리 전략 중 가장 대중적인 **Git-flow**에 대해선 다들 들어보신 경험이 있으실 것이며, 이러한 Git-flow의 진행 구조 또한 어느정도 숙지하고 계실거라 생각이 듭니다. 여느 방법론들도 다 그렇겠지만 Git-flow를 사용하다 보면 확신이 들 정도로 좋은 전략이라는 생각이 들 수도 있고, 무언가 부족하다는 점을 느낄 수도 있습니다.
+
+**그렇다면 여러분들은 다른 브랜치 전략에 대한 이해가 있으신가요?** Git-flow 외 다른 방법론들을 말하는 것입니다. 만약 그렇다면 왜 여러분들은 Git-flow를 채택하셨나요? 아니면 왜 Git-flow를 채택하지 않고 다른 방법론을 선택하셨나요? 저는 사소한 불만으로부터 시작된 궁금증과 이를 해결하고 적용해나가는 과정을 한 번 풀어써 보고자 합니다.
+
+<br />
+
+# Git-flow, 다시 보기
+
+일단 Git-flow가 무엇인지에 대해 간단하게 짚어봅시다.
+
+<Image fileName="git-flow-model.png" />
+
+Git-flow는 Vincent Driessen이라는 개발자에 의해 처음으로 제시된 깃 브랜치 모델이며, 깃을 활용하는 워크플로우의 바이블처럼 제시되는 방법론입니다. Git-flow에선 브랜치를 크게 `master`, `develop`, `feature`, `release`, `hotfix` 등으로 구성하며 각 브랜치에 고유한 역할을 할당하여 브랜치 관리를 진행합니다.
+
+하지만 해당 브랜치 모델은 2010년에 제안된 브랜치 모델인만큼 많은 사랑을 받았던 것도 사실이지만 모든 상황에서 활용될 수 있는 방안은 아닐 것입니다. 이에 대해 작성자인 Vincent Driessen도 2020년에 Git-flow에 대한 현재 시점에서의 견해를 다시 작성하였습니다.
+
+> This model was conceived in 2010, now more than 10 years ago, and not very long after Git itself came into being. In those 10 years, git-flow (the branching model laid out in this article) has become hugely popular in many a software team to the point where people have started treating it like a standard of sorts — but unfortunately also as a dogma or panacea.
+>
+> During those 10 years, Git itself has taken the world by a storm, and the most popular type of software that is being developed with Git is shifting more towards web apps — at least in my filter bubble. Web apps are typically continuously delivered, not rolled back, and you don't have to support multiple versions of the software running in the wild.
+>
+> This is not the class of software that I had in mind when I wrote the blog post 10 years ago. If your team is doing continuous delivery of software, I would suggest to adopt a much simpler workflow (like GitHub flow) instead of trying to shoehorn git-flow into your team.
+>
+> If, however, you are building software that is explicitly versioned, or if you need to support multiple versions of your software in the wild, then git-flow may still be as good of a fit to your team as it has been to people in the last 10 years. In that case, please read on.
+>
+> To conclude, always remember that panaceas don't exist. Consider your own context. Don't be hating. Decide for yourself.
+
+이를 요약하면 다음과 같습니다.
+
+- 해당 모델이 제안된지 이제 10년이 훨씬 넘었고, 일종의 표준처럼 취급하기 시작할 정도로 많은 인기를 끌었다.
+- **웹 앱 유형**들은 일반적으로 **롤백되지 않고 지속적으로 배포**하며, 여러 버전의 소프트웨어를 지원할 필요가 없다.
+- Git-flow는 해당 유형들(웹 앱 등)을 염두한 방법론이 아니며, 팀 내에서 **소프트웨어를 지속적으로 제공**하는 경우 Git-flow 대신 **보다 더 간단한 워크플로우(Github-flow)를 채택함을 권장**한다.
+- 하지만 명시적인 버전이 지정된 소프트웨어를 빌드하거나 여러 버전의 소프트웨어를 지원해야하는 경우 Git-flow가 더 적합할 수 있다.
+- **만병통치약이 아니다.** 상황에 맞춰 적합한 워크플로우를 적용하라.
+
+앞의 내용들을 다시 되짚어 보면 알게 모르게 사용하고 있던 Git-flow에 대해 다시금 생각해보는 계기가 됩니다. 저도 마찬가지로 **"우리는 정말 Git-flow를 알맞은 상황에 활용하고 있을까?"** 라는 질문을 하게 되었습니다. 그리고 저희 팀에서 직면한 문제를 다시금 되짚어보며 단순히 기존 브랜치 활용의 문제가 아니라 **새로운 형태로 브랜치 관리 형태를 전환할 필요가 있는 것은 아닐까**라는 의문에 대한 해답이 필요해졌습니다.
+
+그리고 실제로 많은 사람들이 Git-flow에 대해 의문을 제시하고 있음을 알게 되었습니다. 이를 위해 참고한 레퍼런스는 다음과 같으니 관심이 있으시다면 찾아보셔도 좋을 것 같습니다.
+
+- [Stackoverflow : Why need Develop Branch in GitFlow](https://stackoverflow.com/questions/41481858/why-need-develop-branch-in-gitflow)
+- [Stack Exchange : The trend of the "develop" branch going away](https://softwareengineering.stackexchange.com/questions/312022/the-trend-of-the-develop-branch-going-away)
+- [Medium : Git process that works - say no to GitFlow](https://reallifeprogramming.com/git-process-that-works-say-no-to-gitflow-50bf2038ccf7)
+- [End of line blog : GitFlow considered harmful](https://www.endoflineblog.com/gitflow-considered-harmful)
+- [George Stocker : Please stop recommending Git Flow!](https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/)
+
+또한 다른 브랜치 전략들에서 Git-flow와 차이를 보이는 부분을 알기 위해 다른 브랜치 전략에 대한 내용을 알기 위해 다음의 레퍼런스들을 참고하였습니다.
+
+- [화해 블로그 : 브랜치 전략 수립을 위한 전문가의 조언들](https://dev-blog.hwahae.co.kr/all/tech/9507)
+- [Flagship : What Are the Best Git Branching Strategies](https://www.flagship.io/git-branching-strategies/)
+
+레퍼런스들을 다 읽고 나면 나오는 공통적인 쟁점은 **`develop` 브랜치는 필요한가에 대한 내용**입니다. 물론, 제가 Git-flow를 포기한 사례들과 관련된 레퍼런스들을 찾다보니 어느 정도의 편향이 있을 수 있으므로 이 부분도 감안해야할 것입니다. 그럼에도 불구하고 `develop` 브랜치를 중점으로 이 논점이 진행되고 있음을 어느 정도 맞다고 볼 수 있습니다.
+
+`develop` 의 필요성은 대개 **버전 관리**와 연관되어 문제를 제기하며 이를 해결하기 위한 수단으로서 논의됩니다. 그리고 그 논점은 **버전 관리가 유의미한 수준인가**에 대한 이야기를 함께 포함하게 되고, 공통적으로 제시되는 의견 중 하나로 **지속적으로 제공되는 서비스의 경우, 대부분 버전 관리가 불필요한 수준일 수 있다**라는 내용을 확인할 수 있습니다. 저는 이 부분에 대해 저희 서비스에 빗대어 다음과 같은 질문을 하며 동의하였습니다.
+
+- **여러 버전의 소프트웨어를 관리해야 하는가?**
+  - 단일 버전으로 운영된다. 다른 버전을 동시에 운영할 일은 없다.
+- **명확한 출시 기간과 주기적인 버전 출시 추기가 있는가?**
+  - 어느 정도 기간적인 제약이 있겠지만, 이는 특정 버전에 의존하는 것이 아닌 각 기능의 마감 기한에 의존한다. 즉, 기능마다 유동적으로 일정 변동이 발생할 수 있고 이에 따라 해당 기능의 릴리즈 분기가 변경될 수 있다.
+
+이외에도 많은 질문들을 제시할 수 있지만, 제일 중요하다고 생각되는 앞의 두 가지 질문만을 중심으로 질의를 진행했습니다. `develop` 브랜치에 대한 재고가 필요하고, Git-flow가 `develop` 브랜치를 고정적으로 활용한다는 사실도 알았습니다. 그렇다면 이제 우리가 **왜 Git-flow가 아닌 다른 방식을 채택해야 하는 가**에 대한 논의를 진행할 준비가 된 것 같습니다.
+
+<br />
+
+# 다른 브랜치 전략 톺아보기
+
+앞에서 레퍼런스를 참고했다고 가정하며 타 브랜치 전략들에 대한 설명을 생략했지만, 이젠 우리가 **다른 브랜치 전략들에 대해 논의할 필요**가 생겼으니 짚고 가보고자 합니다. Git-flow 외 대표적인 브랜치 전략으로 Github에서 제시한 **Github-flow**와 Gitlab에서 제안한 **Gitlab-flow**를 확인할 수 있습니다.
+
+## Github-flow
+
+[**Github-flow**](https://docs.github.com/ko/get-started/quickstart/github-flow)는 간단한 분기 기반 워크플로우라고 소개되고 있습니다. 고정적인 브랜치 하나(예를 들어, `master` 브랜치)를 운영하며 모든 분기는 해당 브랜치에서 시작되는 방식입니다. 서브 브랜치로는 앞의 Git-flow와 같이 `feature`, `hotfix` 등을 활용합니다.
+
+또한, Github-flow는 **Pull Request(풀 리퀘스트, 이하 PR)** 전력을 활용하는데, 아마 Github을 사용하시는 분들이라면 익숙한 방식일겁니다. PR을 통해 어느 정도 완성된 기능을 팀원들에게 병합에 대한 합의를 전달 받고 수정사항들을 제시받을 수 있습니다. 그렇게 출시될 수 있는 상태의 기능들을 고정 브랜치에 병합하게 됩니다. 이를 활용하기 위한 GUI 서비스도 [**Github**](https://github.com/)라는 훌륭한 서비스를 통해 제공되고 있죠.
+
+Github-flow는 비교적 간단한 규칙을 갖고 있으면서, 지속적인 통합에 유리한 점을 갖고 있습니다. 그리고 PR 방식을 통해 리뷰와 팀 내 커뮤니케이션을 원활하게 진행할 수도 있죠. 하지만 반대로 체계적이지 않은 개발 프로세스가 오히려 발목을 잡을 수도 있으며, 긴 주기의 프로세스 보다는 짧은 주기의 프로세스에 특화되어 있다는 점이 있습니다.
+
+## Gitlab-flow
+
+[**Gitlab-flow**](https://docs.gitlab.com/ee/topics/gitlab_flow.html)는 앞의 Github-flow가 너무 단순하여 발생할 수 있는 문제들을 보완하고자 나온 전략이라고 생각하시면 될 것 같습니다. 대표적인 특징으로는 `master` 브랜치 이후 **`production`** 브랜치가 존재하여, 해당 `production` 은 **테스트가 마무리 된 기능들을 배포하기 위한 브랜치**로 활용됩니다. 만약 스테이징 단계(변경 사항의 통합 테스트를 진행하는 단계)가 필요하다면, **`pre-production`** 브랜치를 추가하여 병합하고 이후에 `production` 으로 병합하는 과정을 추가할 수도 있습니다. Git-flow와 Github-flow의 중간 지점을 채택하며 Github-flow 기준으로 배포와 관련된 사항들에 대해 보충 설명을 제공합니다.
+
+앞의 두 워크플로우 모두 기존 Git-flow가 가질 수 있는 문제점을 해결하기 위해 제시된 브랜치 관리 전략이며 Git-flow가 적합하지 않은 프로젝트에 가이드라인으로 적용할 수 있는 좋은 전략들입니다. 그리고 이런 부분을 인지하면서 저희 프론트엔드 팀의 문제점을 해결하기 위한 전략을 모색하기 시작했습니다.
+
+<br />
+
+# 우린 어떤 상황인가요?
+
+우선 다음과 같은 질문을 통해 어떤 상황인지에 대한 진단을 진행했습니다. 해당 진단에는 앞의 버전 관리에 대한 진단의 내용도 포함합니다.
+
+- **현재 어떤 브랜치 전략를 채택하고 있는가?**
+  - **Git-flow**를 채택하고 있으며, `release` 브랜치를 제외한 서브 브랜치를 함께 활용합니다.
+- **서비스의 유형은 무엇인가?**
+  - **웹 애플리케이션**입니다.
+- **정기 배포인가요, 상시 배포인가?**
+  - **정기 배포**를 채택하고 있으며, 일정 기간을 정하여 배포를 진행합니다.
+
+그리고 현재 직면한 문제는 무엇인지 다시금 생각해보았습니다. 저희가 갖고 있던 최근의 문제들 중 가장 큰 문제는 **배포 일정 산정에 따라 브랜치 관리가 잘 되지 않는다는 점**과 **돌발적인 배포 일정 변경에 유연하게 대처하지 못한다는 점**이었습니다. 물론, 정해진 일정 내에 기능이 정상적으로 배포되면 좋지만 아직 원활하게 배포 프로세스가 구성되지 않은 탓인지 정해진 일정 내에 배포되지 않는 경우, 시간 순서대로 뒤섞인 병합 내용들을 부분적으로 배포하기 위해 고생을 한 일화도 있었습니다. 그러한 과정에서 `release` 브랜치의 도입을 고려하게 되었습니다.
+
+기존에 `release` 브랜치를 활용하지 않았을 때에는 `feature` 브랜치가 `develop` 으로 병합되고 정해진 배포 일정이 다가오면 `develop` 에서 `main` 으로의 병합 PR을 생성하여 최종 테스트 이후 `main` 으로 병합하는 절차를 거쳤습니다.
+
+<Image fileName="our-git-flow.png" />
+
+일반적으로 정해진 일정에 정해진 기능 사항들이 배포된다면 문제가 없습니다. 정해진 일정에 개발을 진행하고 `develop` 브랜치로 일괄 병합되며 해당 병합 사항들을 배포 일정에 맞추어 다시 `main` 으로 병합하여 릴리즈를 진행하면 문제가 없습니다. 다만, 상황이 여의치 않아 **부분적으로 배포해야 하는 경우**엔 이야기가 달라집니다. 배포를 위한 변경사항들만 `main` 으로 반영해야합니다.
+
+<Image fileName="add-release-git-flow.png" />
+
+위와 같이 진행하면서 한 가지 문제점이 생겼는데, 릴리즈 브랜치에서 병합되지 않을 사항(상황에 따라 릴리즈가 지연된 내용)을 제거하고 `develop` 브랜치에 반영하고자 할 때 **적용된 기능 사항들과 적용되지 않은 사항들을 `develop` 에 반영하는 것**이 상당히 난해한 과정으로 느껴졌습니다. 추후 다시금 반영되지 않은 사항들을 포함하여 다음 릴리즈를 진행할 때, 이를 인지하는 것은 상당히 불편한 과정이고 `rebase` 를 활용하여 테스트를 진행했을 때에도 의도와 다르게 병합이 진행되기도 했습니다.
+
+어떻게 하면 `develop` 브랜치에 부분적인 변경 사항을 반영하지? 방법은 없을까라는 고민을 하던 와중 [**화해팀 개발 블로그의 브랜치 전략과 관련된 글**](https://dev-blog.hwahae.co.kr/all/tech/9507)을 확인하게 되었습니다. 정기 배포 웹 애플리케이션의 브랜치 전략과 관련된 내용을 잘 설명해주는 포스팅이었고, 이후 `develop` 브랜치의 필요성에 대해 알아보게 되었습니다. 그렇게 다시 위로 돌아가 Git-flow를 포함한 여러 브랜치 전략과 `develop` 브랜치의 의미를 다시 생각해보게 된다면, 화해팀의 브랜치 전략은 꽤나 매력적으로 다가왔습니다. 유사한 브랜치 전략으로 [Anti-gitflow](https://www.endoflineblog.com/gitflow-considered-harmful)라고 제시된 전략도 있습니다. 화해팀의 전략과 해당 전략의 공통점은 `develop` 이 존재하지 않는다는 것이죠.
+
+<br />
+
+# Develop-less workflow
+
+그렇다면 `develop` 을 제거했을 때, 어떤 부분들이 보다 더 나아질까요? 우선 `develop` 을 제거한 흐름을 도식화 해보겠습니다.
+
+<Image fileName="develop-less-workflow.png" />
+
+위 도식화를 보면서 브랜치 전략 원칙에 대해서 정리해보겠습니다.
+
+1. 모든 서브 브랜치들은 **`main` 브랜치로부터 시작**된다.
+2. 기본적으로 **`feature` 브랜치에서 기능 개발을 진행**하고, 기능 구현이 완성되면 **`release` 브랜치에 병합**된다.
+3. **배포 일정이 결정되면 `release` 브랜치를 생성**하고, 해당 배포 일정에 진행될 기능(`feature` 브랜치)들을 해당 `release` 브랜치에 병합한다.
+4. `release` 브랜치에 병합된 기능들은 **충분한 테스트 및 QA 프로세스를 진행**하고 **수정사항이 발생하면 해당 `release` 브랜치에서 작업을 진행**한다.
+5. 배포 준비가 완료되었을 때, **`release` 브랜치를 `main` 브랜치로 병합**하고 배포를 진행한다.
+6. 배포 이후 발생하는 수정사항은 **`hotfix` 브랜치를 통해 수정하여 반영**한다.
+
+여러분은 어떻게 느껴지시나요. 개인적으로 하나의 근원이 되는 브랜치(`main`)에서 시작하여, 최종적으로 다시 병합되는 이 흐름이 단순하여 **워크플로우 이해를 위한 오버헤드가 적다**는 점과, 제각각의 브랜치들이 고유한 역할을 수행하며 **각 브랜치의 역할 구분이 명확하다**는 점이 꽤나 매력적이라는 생각이 듭니다. 또한, 돌발 상황에서 부분적인 배포를 진행한다던지 개별적인 이슈에 집중하여 테스트 및 QA를 진행할 수 있다는 점들도 **브랜치 전략이 유연하다**고 생각을 할 수 있는 부분인 것 같습니다. 이를 요약하면 다음과 같습니다.
+
+- 워크플로우 이해가 쉽다!
+- 각 브랜치 역할 구분이 명확하다!
+- 브랜치 전략이 유연하다!
+
+<br />
+
+# 정리
+
+사소한 불편함으로부터 시작된 의문이 꼬리에 꼬리를 물어 위와 같은 이유를 도출하게 되었고, 팀 내 합의를 통해 해당 워크플로우를 채택하여 일정 기간 진행해보기로 결정했습니다. 적용하기 이전이기에 이론에 불과하지만 확실한건 **필요에 의해 해당 워크플로우를 채택한다는 점**이 추후 업무 효율성 개선에 큰 도움이 될 것으로 생각됩니다. 편하고 유용하다면 **성공적인 브랜치 전략 전환**이 될 것이고, 실패한다면 어떤 부분이 문제였는지에 대한 **원인 분석을 통해 적절한 전략 수립을 위한 도움**이 될 것이라고 믿어 의심치 않습니다.
+
+또한, 이번 계기를 통해 Git-flow 자체에 대한 이해와 브랜치 전략의 종류들에 대한 깊은 이해를 할 수 있었던 것 같아 좋은 시간이 되었다고 생각합니다. 각 브랜치 전략이 가지는 장단점은 무엇인지, 왜 그러한 장단점을 가지는 지에 대해 깊게 이해하기 위해 사고하고, 리서치하며 적절한 전략 수립에 필요한 논점은 무엇인지 생각해보는 가치 있는 시간이었습니다.
+
+추가적으로 화해 개발팀 블로그에서도 언급되었지만, [아틀라시안 BitBucket 팀의 조언](https://www.atlassian.com/git/articles/trust-the-merge-and-branch-simplification-musings)에 대한 내용도 꼭 한 번 읽어보시면 좋을 것 같습니다. 개인적으로 **어떻게 브랜치 전략을 세워야 하는 가**에 대한 이해를 크게 도와준 내용이라고 생각합니다. 번역된 내용은 [브랜치 전략 수립을 위한 전문가의 조언들](https://dev-blog.hwahae.co.kr/all/tech/9507) 포스팅에도 있으니 이를 참고하셔도 좋습니다. 그리고 Git-flow로의 전환 사례가 궁금하신 분들은 유명한 글인 [우아한 형제들 기술블로그의 "우린 Git-flow를 사용하고 있어요"](https://techblog.woowahan.com/2553/)를 읽어보시는 것도 큰 도움이 될 것 같습니다.
+
+> 화해팀 블로그 요약 내용을 보고 싶으시면 [요약 리드미](https://github.com/p-acid/read-or-inspired/blob/main/2023/01.md#%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC-%EA%B4%80%EB%A0%A8-%EB%A7%81%ED%81%AC-%EC%A0%95%EB%A6%AC)를 확인해주세요
+
+브랜치 전략에 대한 내용을 알아갈 수록 Vincent Driessen이 첨언한 **_Git-flow는 만병통치약이 아니다_**라는 말이 전과는 다르게 느껴졌던 것 같습니다. 모든 방법론엔 정답이 없고, **일단 현재 상황을 파악해야 한다는 점**을 다시금 새기며 포스팅을 마무리하도록 하겠습니다.
+
+### 참고
+
+- [화해 블로그 : 브랜치 전략 수립을 위한 전문가의 조언들](https://dev-blog.hwahae.co.kr/all/tech/9507)
+- [강남언니 공식 블로그(20.03.23) : Git flow? 들어도 봤고, 쓰고도 있는데...](https://blog.gangnamunni.com/post/understanding_git_flow/)
+- [우아한형제들 기술블로그(17.10.30) : 우린 Git-flow를 사용하고 있어요](https://techblog.woowahan.com/2553/)
+- [Flagship : What Are the Best Git Branching Strategies](https://www.flagship.io/git-branching-strategies/)
+- [Stackoverflow : Why need Develop Branch in GitFlow](https://stackoverflow.com/questions/41481858/why-need-develop-branch-in-gitflow)
+- [Stack Exchange : The trend of the "develop" branch going away](https://softwareengineering.stackexchange.com/questions/312022/the-trend-of-the-develop-branch-going-away)
+- [Medium : Git process that works - say no to GitFlow](https://reallifeprogramming.com/git-process-that-works-say-no-to-gitflow-50bf2038ccf7)
+- [End of line blog : GitFlow considered harmful](https://www.endoflineblog.com/gitflow-considered-harmful)
+- [George Stocker : Please stop recommending Git Flow!](https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/)
