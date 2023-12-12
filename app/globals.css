@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.animate-underline {
+  @apply block relative overflow-hidden;
+}
+
+.animate-underline::after {
+  content: "";
+  transform: translate3d(-101%, 0, 0);
+  transition: opacity 300ms, transform 300ms;
+
+  @apply absolute bottom-0 left-0 w-full h-[2px] bg-emerald-500;
+}
+
+.animate-underline:hover::after {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}

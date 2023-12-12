@@ -56,17 +56,17 @@ export default async function PostPage({ params }: PostProps) {
 
   return (
     <article className="py-6 prose prose-emerald dark:prose-invert">
-      <h1 className="mb-2">{post.title}</h1>
+      <h1 className="mb-3">{post.title}</h1>
 
       {post.description && (
-        <p className="text-lg mt-0 text-zinc-700 dark:text-zinc-200">
+        <p className="text-lg mt-0 text-zinc-700 dark:text-zinc-300 font-normal">
           {post.description}
         </p>
       )}
 
       {post.thumbnail && (
         <Image
-          className="w-full h-[400px] object-cover"
+          className="w-full max-h-[400px] object-cover"
           src={`${base}/${post.thumbnail}`}
           alt="thumbnail"
           width={680}
