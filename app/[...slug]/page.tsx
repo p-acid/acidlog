@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { allPages } from "@/.contentlayer/generated";
 
 import { Mdx } from "@/components/mdx-components";
 import MdxImage from "@/components/mdx-image";
 import { Source } from "@/lib/route";
+import { allPages } from "@/.contentlayer/generated";
 
 interface PageProps {
   params: {
