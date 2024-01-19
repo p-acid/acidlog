@@ -9,15 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
     "@vercel/analytics": "^1.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "contentlayer": "^0.3.4",
+    "embla-carousel-react": "^8.0.0-rc19",
+    "lucide-react": "^0.312.0",
     "next": "14.0.3",
     "next-contentlayer": "^0.3.4",
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
     "rehype-pretty-code": "^0.10.2",
-    "shiki": "^0.14.5"
+    "shiki": "^0.14.5",
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",

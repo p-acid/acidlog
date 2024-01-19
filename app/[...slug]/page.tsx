@@ -5,6 +5,13 @@ import { Mdx } from "@/components/mdx-components";
 import MdxImage from "@/components/mdx-image";
 import { Source } from "@/lib/route";
 import { allPages } from "@/.contentlayer/generated";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface PageProps {
   params: {
@@ -63,6 +70,29 @@ export default async function PagePage({ params }: PageProps) {
         code={page.body.code}
         components={{
           Image: (props) => <MdxImage base={Source.Image.Page} {...props} />,
+          Carousel: ({
+            pageName,
+            images = [],
+          }: {
+            pageName: string;
+            images: string[];
+          }) => (
+            <Carousel>
+              <CarouselContent>
+                {images?.map((fileName) => (
+                  <CarouselItem key={fileName}>
+                    <MdxImage
+                      className="max-h-[500px] object-scale-down"
+                      base={`${Source.Image.Page}/${pageName}`}
+                      fileName={fileName}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          ),
         }}
       />
     </article>
