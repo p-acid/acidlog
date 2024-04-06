@@ -1,10 +1,9 @@
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
+import { allPages } from "@/.contentlayer/generated";
 import { Mdx } from "@/components/mdx-components";
 import MdxImage from "@/components/mdx-image";
-import { Source } from "@/lib/route";
-import { allPages } from "@/.contentlayer/generated";
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Source } from "@/lib/route";
 
 interface PageProps {
   params: {
@@ -40,7 +40,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: page.title,
+    title: `Samuel's DevLog : ${page.title}`,
     description: page.description,
   };
 }

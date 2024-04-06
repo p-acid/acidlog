@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Analytics } from "@/components/analytics";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Route } from "@/lib/route";
 
 import "./globals.css";
@@ -13,8 +13,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Samuel Devlog",
+  title: "Samuel's Devlog",
   description: "박산성의 기술 블로그입니다.",
+  metadataBase: new URL("https://www.acidlog.life"),
+  openGraph: {
+    images: "/images/og-image.png",
+  },
 };
 
 export default function RootLayout({

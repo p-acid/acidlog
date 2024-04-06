@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { allPosts } from "@/.contentlayer/generated";
 
-import MdxImage from "@/components/mdx-image";
 import { Mdx } from "@/components/mdx-components";
+import MdxImage from "@/components/mdx-image";
 import { Source } from "@/lib/route";
 import Image from "next/image";
 
@@ -35,7 +35,8 @@ export async function generateMetadata({
   }
 
   return {
-    ...post,
+    title: `Samuel's DevLog : ${post.title}`,
+    description: post.description,
   };
 }
 
