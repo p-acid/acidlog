@@ -1,6 +1,5 @@
-import { Docs, allDocs } from "@/.contentlayer/generated";
-import { Source } from "@/lib/route";
-import Image from "next/image";
+import { allDocs } from "@/.contentlayer/generated";
+import CategoryIcon from "@/components/category-icon";
 
 import Link from "next/link";
 
@@ -19,17 +18,7 @@ export default function Home() {
             key={doc._id}
             className="flex items-center gap-6 max-sm:gap-4 max-sm:flex-col max-sm:items-start"
           >
-            {doc.category ? (
-              <Image
-                className="p-[6px] bg-zinc-300 rounded-lg my-0"
-                src={`${Source.Image.Docs}/category-icon/${
-                  CATEGORY_ICON_IMAGE[doc.category]
-                }`}
-                alt={doc.category}
-                width={40}
-                height={40}
-              />
-            ) : null}
+            {doc.category ? <CategoryIcon category={doc.category} /> : null}
 
             <Link className="no-underline" href={doc.slug}>
               <h2 className="w-fit animate-underline mb-1 my-0">{doc.title}</h2>
@@ -41,10 +30,3 @@ export default function Home() {
     </main>
   );
 }
-
-const CATEGORY_ICON_IMAGE: Record<
-  Exclude<Docs["category"], undefined>,
-  string
-> = {
-  nodejs: "nodejs.svg",
-};

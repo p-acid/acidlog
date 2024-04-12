@@ -43,9 +43,9 @@ export default function RootLayout({
 
                 <nav className="ml-auto text-sm font-medium space-x-6">
                   <Link href={Route.Home}>Home</Link>
+                  <Link href={Route.Docs}>Docs</Link>
                   <Link href={Route.Projects}>Projects</Link>
                   <Link href={Route.About}>About</Link>
-                  <Link href={Route.Docs}>Docs</Link>
                 </nav>
               </div>
             </header>

@@ -6,7 +6,7 @@ import { allDocs } from "@/.contentlayer/generated";
 import { Mdx } from "@/components/mdx-components";
 import MdxImage from "@/components/mdx-image";
 import { Source } from "@/lib/route";
-import Image from "next/image";
+import CategoryIcon from "@/components/category-icon";
 
 interface DocProps {
   params: {
@@ -57,6 +57,15 @@ export default async function DocPage({ params }: DocProps) {
 
   return (
     <article className="py-6 prose prose-emerald dark:prose-invert">
+      {doc.category ? (
+        <CategoryIcon
+          category={doc.category}
+          className="p-[10px] mb-6 rounded-xl"
+          width={54}
+          height={54}
+        />
+      ) : null}
+
       <h1 className="mb-3">{doc.title}</h1>
 
       {doc.description && (
