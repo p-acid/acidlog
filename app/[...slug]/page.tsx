@@ -69,6 +69,7 @@ export default async function PagePage({ params }: PageProps) {
       <Mdx
         code={page.body.code}
         components={{
+          a: (props) => <a target="_blank" {...props} />,
           Image: (props) => <MdxImage base={Source.Image.Page} {...props} />,
           Carousel: ({
             pageName,
