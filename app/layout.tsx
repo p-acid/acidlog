@@ -45,6 +45,7 @@ export default function RootLayout({
                   <Link href={Route.Home}>Home</Link>
                   <Link href={Route.Projects}>Projects</Link>
                   <Link href={Route.About}>About</Link>
+                  <Link href={Route.Docs}>Docs</Link>
                 </nav>
               </div>
             </header>

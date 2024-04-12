@@ -7,7 +7,9 @@ import rehypePrettyCode, {
   Options as RehypePrettyCodeOptions,
 } from "rehype-pretty-code";
 
-const computedFields: DocumentTypeDef<"Page" | "Post">["computedFields"] = {
+const computedFields: DocumentTypeDef<
+  "Page" | "Post" | "Docs"
+>["computedFields"] = {
   slug: {
     type: "string",
     resolve: (doc) => `/${doc._raw.flattenedPath}`,
@@ -62,9 +64,33 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const Docs = defineDocumentType(() => ({
+  name: "Docs",
+  filePathPattern: `docs/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+    category: {
+      type: "enum",
+      options: ["nodejs"],
+    },
+    date: {
+      type: "date",
+      required: true,
+    },
+  },
+  computedFields,
+}));
+
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page],
+  documentTypes: [Post, Page, Docs],
   mdx: {
     rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
   },
