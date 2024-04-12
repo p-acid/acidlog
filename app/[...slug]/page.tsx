@@ -58,6 +58,8 @@ export default async function PagePage({ params }: PageProps) {
     notFound();
   }
 
+  const base = Source.Image.Page;
+
   return (
     <article className="py-6 prose prose-emerald dark:prose-invert">
       <h1>{page.title}</h1>
@@ -67,10 +69,9 @@ export default async function PagePage({ params }: PageProps) {
       )}
 
       <Mdx
+        base={base}
         code={page.body.code}
         components={{
-          a: (props) => <a target="_blank" {...props} />,
-          Image: (props) => <MdxImage base={Source.Image.Page} {...props} />,
           Carousel: ({
             pageName,
             images = [],

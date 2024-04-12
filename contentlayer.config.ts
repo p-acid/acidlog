@@ -7,7 +7,9 @@ import rehypePrettyCode, {
   Options as RehypePrettyCodeOptions,
 } from "rehype-pretty-code";
 
-const computedFields: DocumentTypeDef<"Page" | "Post">["computedFields"] = {
+const computedFields: DocumentTypeDef<
+  "Page" | "Post" | "Docs"
+>["computedFields"] = {
   slug: {
     type: "string",
     resolve: (doc) => `/${doc._raw.flattenedPath}`,
@@ -22,6 +24,8 @@ const rehypeOptions: RehypePrettyCodeOptions = {
   theme: "material-theme-ocean",
   keepBackground: true,
 };
+
+const categoryEnum = ["nodejs", "notion", "git"];
 
 export const Page = defineDocumentType(() => ({
   name: "Page",
@@ -54,6 +58,34 @@ export const Post = defineDocumentType(() => ({
     thumbnail: {
       type: "string",
     },
+    category: {
+      type: "enum",
+      options: categoryEnum,
+    },
+    date: {
+      type: "date",
+      required: true,
+    },
+  },
+  computedFields,
+}));
+
+export const Docs = defineDocumentType(() => ({
+  name: "Docs",
+  filePathPattern: `docs/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+    category: {
+      type: "enum",
+      options: categoryEnum,
+    },
     date: {
       type: "date",
       required: true,
@@ -64,7 +96,7 @@ export const Post = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page],
+  documentTypes: [Post, Page, Docs],
   mdx: {
     rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
   },
