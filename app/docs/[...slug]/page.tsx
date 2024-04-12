@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 
 import { allDocs } from "@/.contentlayer/generated";
 
+import CategoryIcon from "@/components/category-icon";
 import { Mdx } from "@/components/mdx-components";
 import MdxImage from "@/components/mdx-image";
 import { Source } from "@/lib/route";
-import CategoryIcon from "@/components/category-icon";
 
 interface DocProps {
   params: {
@@ -75,6 +75,7 @@ export default async function DocPage({ params }: DocProps) {
       )}
 
       <Mdx
+        base={base}
         code={doc.body.code}
         components={{
           Image: (props) => <MdxImage base={base} {...props} />,

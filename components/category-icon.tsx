@@ -4,10 +4,8 @@ import Image, { ImageProps } from "next/image";
 import { Docs } from "@/.contentlayer/generated";
 import { Source } from "@/lib/route";
 
-type RealCategory = Exclude<Docs["category"], undefined>;
-
 interface CategoryIconProps extends Partial<ImageProps> {
-  category: RealCategory;
+  category: Docs["category"];
 }
 
 export default function CategoryIcon({
@@ -18,11 +16,13 @@ export default function CategoryIcon({
   return (
     <Image
       className={cn(
-        "p-2 bg-zinc-700 rounded-lg my-0 dark:bg-zinc-200",
+        "p-2 bg-zinc-900 rounded-lg my-0 dark:bg-zinc-100",
         className
       )}
-      src={`${Source.Image.Docs}/category-icon/${CategoryIconImage[category]}`}
-      alt={category}
+      src={`${Source.Image.CategoryIcon}/${
+        category ? CategoryIconImage[category] : "default.svg"
+      }`}
+      alt={category ?? "default-category"}
       width={40}
       height={40}
       {...rest}
@@ -30,6 +30,11 @@ export default function CategoryIcon({
   );
 }
 
-export const CategoryIconImage: Record<RealCategory, string> = {
+export const CategoryIconImage: Record<
+  Exclude<Docs["category"], undefined>,
+  string
+> = {
   nodejs: "nodejs.svg",
+  git: "git.svg",
+  notion: "notion.png",
 };

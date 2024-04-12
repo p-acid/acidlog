@@ -25,6 +25,8 @@ const rehypeOptions: RehypePrettyCodeOptions = {
   keepBackground: true,
 };
 
+const categoryEnum = ["nodejs", "notion", "git"];
+
 export const Page = defineDocumentType(() => ({
   name: "Page",
   filePathPattern: `pages/**/*.mdx`,
@@ -56,6 +58,10 @@ export const Post = defineDocumentType(() => ({
     thumbnail: {
       type: "string",
     },
+    category: {
+      type: "enum",
+      options: categoryEnum,
+    },
     date: {
       type: "date",
       required: true,
@@ -78,7 +84,7 @@ export const Docs = defineDocumentType(() => ({
     },
     category: {
       type: "enum",
-      options: ["nodejs"],
+      options: categoryEnum,
     },
     date: {
       type: "date",

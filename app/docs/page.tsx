@@ -18,7 +18,7 @@ export default function Home() {
             key={doc._id}
             className="flex items-center gap-6 max-sm:gap-4 max-sm:flex-col max-sm:items-start"
           >
-            {doc.category ? <CategoryIcon category={doc.category} /> : null}
+            <CategoryIcon category={doc.category} />
 
             <Link className="no-underline" href={doc.slug}>
               <h2 className="w-fit animate-underline mb-1 my-0">{doc.title}</h2>
