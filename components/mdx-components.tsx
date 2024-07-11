@@ -19,7 +19,13 @@ export function Mdx({ base, code, components }: MdxProps) {
     <Component
       components={{
         a: (props) => <a target="_blank" {...props} />,
-        Image: (props) => <MdxImage base={base} {...props} />,
+        Image: (props) => (
+          <MdxImage
+            className="max-h-[500px] w-full object-contain"
+            base={base}
+            {...props}
+          />
+        ),
         Video: ({ filename, ...rest }) => (
           <video controls width="100%" {...rest}>
             <source src={`${base}/${filename}`} type="video/mp4" />

@@ -1,37 +1,31 @@
 ---
-title: "Notion API로 블로그 시스템 구성하기"
+title: "Notion API를 활용한 정적 콘텐츠 관리"
 date: "2024-04-06"
-description: "Notion으로 작성된 콘텐츠를 빠르고 온전한 상태로 보여줄 방법이 있을까"
+description: "Notion으로 작성된 콘텐츠를 정적 페이지 형태로 빠르게 보여주기"
 category: notion
 thumbnail: "thumbnail.png"
 ---
 
-> 우리의 **콘텐츠를 보여줄 수 있는 서비스**가 필요해요.
-
-새로운 프로젝트의 기획은 이렇게 시작되었습니다. 말 그대로 우리는 **작성된 아티클 콘텐츠를 보여줄 수 있는 서비스**를 만들어야 했고 추가적으로 알아낸 정보는 다음과 같았습니다.
+모든 내용은 새로운 프로젝트의 기획으로부터 시작되었습니다. 새로운 프로젝트의 기획은 **작성된 아티클 콘텐츠를 보여줄 수 있는 서비스**를 만드는 것이었고, 이를 해결하기 위해 추가적으로 다음과 같은 내용을 조사했습니다.
 
 - 아티클 콘텐츠는 **주로 Notion을 통해 제작**된다.
-- 콘텐츠를 제작하는 **대부분의 구성원이 Markdown에 대한 이해가 없다.**
+- 콘텐츠를 제작하는 구성원들은 **Markdown에 대한 이해가 부족하다.**
 
-이런 상황에서 굳이 Notion이 아닌 다른 에디터를 차용하거나 Markdown 문법을 익혀, 구성원에게 불편한 작성 경험과 러닝 커브를 감당하게 할 필요는 없다고 생각되어 일단 Notion 기반으로 기능을 구성하자는 결론을 지었습니다. 그때부터 Notion을 완벽하게 파훼하여 도륙을 내겠다는 마음가짐으로 프로젝트를 시작했습니다.
+풍부한 아티클을 구성하기 위해 텍스트 외에도 이미지 등 다양한 구성 요소가 필요하며, 이를 위해 Markdown 문법으로 작성된 콘텐츠를 정적 페이지로 보여주는 것이 좋다고 생각했습니다.
+
+그래서 Notion API로 전달받은 콘텐츠를 Markdown 형태로 변환해 화면에 보여준다는 구상을 바탕으로 개발을 진행했습니다.
 
 <br />
 
-# Notion API를 활용하자
+# Notion API 알아보기
 
-공식적으로 Notion에선 Notion Workspace의 데이터를 REST API를 통해 활용할 수 있는 [공개 API](https://developers.notion.com/)를 제공하고 있습니다. 해당 API의 활용 방법은 [공식 문서 가이드](https://developers.notion.com/docs/getting-started)에서 잘 설명되어 있기도 하고 검색하면 잘 작성된 블로그 글들이 많으니 자세한 설명은 생략하겠습니다.
+공식적으로 Notion에선 Notion Workspace의 데이터를 REST API를 통해 활용할 수 있는 [공개 API](https://developers.notion.com/)를 제공하고 있습니다. 해당 API의 활용 방법은 [공식 문서 가이드](https://developers.notion.com/docs/getting-started)에서 확인하실 수 있습니다.
 
-<Callout>
-  노션 API 활용의 기본적인 내용을 담은 좋은 글을 찾으신다면 [화해 블로그의
-  "Notion API와 함께 정적 페이지로의
-  여정"](https://blog.hwahae.co.kr/all/tech/10960) 을 추천드립니다.
-</Callout>
-
-공개 API가 있지만 아직 고려해야 할 사항은 남아있습니다. 그건 API 요청이 초당 3개로 제한이 있으며 요청 속도 또한 UX에 영향을 줄 정도로 약간 느리다는 점입니다.
+하지만 Notion API를 활용할 때 고려해야 할 사항이 있었습니다. **API 요청이 초당 3개로 제한**되며, **요청 속도**도 UX에 영향을 줄 정도로 다소 **느리다**는 점입니다.
 
 > The rate limit for incoming requests per integration is an average of three requests per second.
 
-이런 부분은 당장 기능 구현에 치명적이지 않기도 하고 추후 기능 개선을 진행할 수 있는 부분이었기에 배제하고 진행하였습니다.
+이런 부분은 당장 기능 구현에 큰 문제가 되지 않아, 추후 기능 개선 사항으로 미뤄두고 진행하기로 결정했습니다.
 
 <Callout>
   자세한 내용은 [Request
@@ -49,7 +43,7 @@ const notion = new Client({
 });
 ```
 
-전 콘텐츠를 관리할 데이터베이스를 지정하여 해당 데이터베이스의 페이지 목록을 가져오고 `id` 를 기반으로 해당 페이지의 상세 정보를 가져왔습니다.
+아래와 같이 콘텐츠를 관리할 데이터베이스를 지정하고, 해당 데이터베이스의 페이지 목록을 가져와 `id` 를 기반으로 각 페이지의 상세 정보를 조회할 수 있습니다.
 
 ```ts
 // 데이터베이스 목록 불러오기
@@ -65,17 +59,17 @@ const page = await notion.pages.retrieve({
 
 <br />
 
-# Notion 데이터를 파싱해야 한다
+# Notion 데이터를 변환하자
 
-근데 데이터 요청을 진행하고 나니 예상치 못한 부분이 있었습니다. 저희가 일반적으로 알고 있는 Markdown 형식의 구조와 Notion의 데이터 구조는 상이한 부분이 있다는 것입니다.
+API를 통해 데이터 요청을 진행하고 나니 예상치 못한 부분이 있었습니다. 저희가 일반적으로 알고 있는 Markdown 형식의 구조와 Notion의 데이터 구조는 상이한 부분이 있다는 것입니다.
 
 간략하게 말하면 Notion은 **Block이라는 단위의 객체 형태**의 데이터로 작성된 정보를 구성하고 그래서 Markdown 기반의 콘텐츠 표현 방식보다 더 다양한 방식으로 표현할 수 있습니다. 이는 API 요청으로 전달 받은 데이터에도 동일하게 적용됩니다.
 
 <Image fileName="headache-ryu.jpeg" />
 
-Notion API를 통해 데이터를 받기만 하면 탄탄대로 일 것으로 생각하며 싱글벙글하다 갑자기 골이 아프기 시작했습니다. 당장 일정에 많은 여유가 있지 못한 터라 가능한 간편하게 Markdown 형태로 파싱할 수 있는 방법을 생각해야만 했습니다.
+당시 일정이 넉넉하지 않은 상황이었기에 자체적으로 이를 직접 변환하는 방법은 제외하고 다른 방법을 찾기로 결정했습니다.
 
-세상에 죽으라는 법은 없는지 당연히도 [`notion-to-md`](https://github.com/souvikinator/notion-to-md)라는 오픈 소스를 활용하면 손쉽게 Notion의 Block 데이터를 Markdown 형태로 파싱할 수 있었고 앞의 화해 블로그에서도 해당 솔루션에 대해 다루고 있습니다.
+이를 해결하기 위해 [`notion-to-md`](https://github.com/souvikinator/notion-to-md)라는 오픈 소스를 찾게 되었고, 해당 패키지를 통해 Notion API의 Block 객체를 Markdown 형태로 변환할 수 있었습니다.
 
 사용 방법 또한 너무 간단합니다. 앞의 `@notionhq/client` 를 통해 생성한 클라이언트를 옵션으로 할당하여 `notion-to-md` 의 메서드를 활용할 수 있습니다.
 
@@ -113,13 +107,13 @@ const n2m = new NotionToMarkdown({
 }
 ```
 
+## 특정 노션 Block 커스텀
+
 이제 Markdown 형태의 문자열로 변환된 해당 데이터를 활용하여 아티클 콘텐츠를 보여줄 수 있게 되었습니다. 하지만 약간의 문제가 있는데 **Notion의 모든 Block 요소들은 Markdown 형태로 변환될 수 없다**는 점입니다. 예를 들어 Notion의 Callout의 경우 다음의 형태를 갖습니다.
 
 <Image fileName="callout-example.png" />
 
 좌측엔 Notion에서 제공하는 아이콘 이미지 혹은 첨부 이미지를 할당할 수 있으며 우측엔 추가적인 콘텐츠를 작성할 수 있는 영역이 존재합니다. Callout 타입은 Markdown 형태로 구현하는데 어려움이 있기에 **이를 별도로 커스텀하는 과정을 추가**해야 합니다.
-
-## 특정 노션 Block 커스텀
 
 특정 타입의 Block의 경우 `notion-to-md` 를 통해 커스텀 할 수 있습니다.
 
@@ -165,13 +159,21 @@ Markdown 문법으로 표현되는 컴포넌트들은 위와 같이 스타일링
 
 <br />
 
-# Notion API 속도 극복하기
+# 초기 렌더링 속도 개선하기
 
-Notion API 자체가 느려서인지 유난히 페이지 렌더링 속도가 느리다고 느껴졌습니다. 인지하고 있던 내용이었지만 막상 구현하고 보니 불편할 정도로 느리게 느껴졌습니다.
+앞에서 말씀드린 대로 Notion API 요청 자체가 느려서인지 유난히 페이지 렌더링 속도가 느리다고 느껴졌습니다. **초기 콘텐츠 렌더링이 느린 것은 좋은 UX를 제공하지 못하다고 판단**되어 화면 렌더링 단계까지 마친 이후에 이를 개선하기로 결정했습니다.
 
 <Image fileName="heart-heagwan.jpeg" />
 
-그래서 이를 해결하기 위해 앞의 Notion API를 활용하여 **프로젝트에 Notion 페이지들을 Markdown 형태로 다운로드 하는 스크립트**를 작성하기로 했습니다.
+기존엔 [서버 컴포넌트(RSC)](https://react.dev/reference/rsc/server-components) 내부에서 직접 데이터를 요청하여 활용하는 방식을 사용했는데, 아티클 콘텐츠의 특성상 변경이 잦지 않다는 점을 감안하여 [Next.js의 정적 사이트 생성(SSG, Static Site Generation) 방식](https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation)을 활용하면 초기 렌더링 속도를 줄일 수 있을 것이라 판단하고 이를 적용하기로 결정했습니다.
+
+정적 사이트 생성은 Next.js 13 버전부터 `generateStaticParams` 함수를 통해 가능한데, 해당 함수 내부에서 API 요청을 통해 데이터를 가져오는 방식과 프로젝트에 Markdown 파일을 저장하여 관리하는 방식으로 이를 구현할 수 있습니다.
+
+두 방식 **모두 초기 렌더링 시간이 빠르다**라는 공통점이 있지만 차이점은 **빌드 시간**과 **네트워크 의존성**입니다. API 요청을 통해 정적 경로를 생성하는 경우, 빌드 타임에서 API 요청을 실행하기에 네트워크 지연과 API 응답 시간이 추가되어 빌드 시간이 증가하며 네트워크 연결에 문제가 생기면 정상적인 빌드가 진행되지 않습니다.
+
+또한 매 빌드마다 아티클을 Notion으로 부터 최신화 하기 때문에 아티클 업데이트 주기를 맘대로 하지 못할 수 있어 이를 제어하고자 **프로젝트에 Markdown 파일을 저장하는 방식**을 선택하게 되었습니다.
+
+이를 위해 Notion API를 활용하여 **프로젝트에 Notion 페이지들을 Markdown 형태로 다운로드 하는 스크립트**를 작성하기로 했습니다.
 
 ```js
 import fs from "fs";
@@ -312,7 +314,7 @@ ${errors.reduce((acc, cur) => acc + cur, "")}`
 }
 ```
 
-이렇게 변경하고 나서 렌더링 시간이 약 3초 가량 줄어 체감상 빨라진 느낌이 확 들었습니다.
+이렇게 변경하고 나서 렌더링 시간이 **약 3초 가량 줄어** 체감상 빨라진 느낌이 확 들었습니다.
 
 <Video filename="before-download.mov" />
 
@@ -322,11 +324,9 @@ ${errors.reduce((acc, cur) => acc + cur, "")}`
 
 이전보다 확실히 딜레이가 확 줄어든 느낌을 받게 됩니다. 더욱 자세히 보여주기 위해 클릭 모션도 화면에 반영했어야 했는데 없으니 클릭 타이밍이 보이지 않아 애매한 부분이 있긴 하네요.
 
-하지만 Markdown 파일을 프로젝트 내에 다운로드 받는 형식으로 변경하면서 몇 가지 문제가 발생했습니다.
-
 ## Notion 이미지 URL 만료 문제
 
-Markdown으로 변환하면서 기존엔 문제가 되지 않았던 부분 중 하나는 **이미지 URL 만료 문제**였습니다.
+하지만 Markdown 파일을 프로젝트 내에 다운로드 받는 형식으로 변경하면서 몇 가지 문제가 발생했습니다. Markdown으로 변환하면서 기존엔 문제가 되지 않았던 부분 중 하나는 **이미지 URL 만료 문제**였습니다.
 
 Notion 이미지는 AWS S3에 저장되게 되는데 해당 이미지를 불러오는 URL은 **시간 제한**이 있어 Markdown 형태에 해당 형태의 이미지 URL이 저장되게 되면 일정 시간 이후엔 이미지를 확인할 수 없다는 문제가 발생한 것입니다.
 
@@ -367,12 +367,6 @@ const transferImgSrc = (orgSrc, blockId) => {
 ```
 
 해당 함수를 `setCustomTransformer` 를 통해 `"image"` 타입의 Block을 커스텀하여 Markdown 다운로드 결과엔 이미지 경로가 공개 페이지 이미지 경로를 따라가도록 만들었습니다.
-
-<Callout>
-  해당 솔루션은 [Ethan님의 노션에 첨부된 이미지 URL 만료 없이
-  사용하기.](https://weezip.treefeely.com/post/weezip-use-notion-image) 글을
-  참고하였습니다. 자세한 내용은 해당 글을 확인해주시면 감사하겠습니다.
-</Callout>
 
 웹에 게시를 했을 때 해당 페이지가 검색 결과에 공개되면 문제가 되었겠지만 **검색 엔진에 인덱싱 되지 않도록 선택할 수 있는 옵션**이 존재했기 때문에 이미지 경로 만을 위해 활용할 수 있었습니다.
 
@@ -422,3 +416,4 @@ module.exports = {
 ### 참고
 
 - [화해 블로그 : Notion API와 함께 정적 페이지로의 여정](https://blog.hwahae.co.kr/all/tech/10960)
+- [Ethan : 노션에 첨부된 이미지 URL 만료 없이 사용하기](https://weezip.treefeely.com/post/weezip-use-notion-image)
