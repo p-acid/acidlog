@@ -5,7 +5,6 @@ import { allDocs } from "@/.contentlayer/generated";
 
 import CategoryIcon from "@/components/category-icon";
 import { Mdx } from "@/components/mdx-components";
-import MdxImage from "@/components/mdx-image";
 import { Source } from "@/lib/route";
 
 interface DocProps {
@@ -74,13 +73,7 @@ export default async function DocPage({ params }: DocProps) {
         </p>
       )}
 
-      <Mdx
-        base={base}
-        code={doc.body.code}
-        components={{
-          Image: (props) => <MdxImage base={base} {...props} />,
-        }}
-      />
+      <Mdx base={base} code={doc.body.code} />
     </article>
   );
 }
