@@ -25,7 +25,7 @@ const rehypeOptions: RehypePrettyCodeOptions = {
   keepBackground: true,
 };
 
-const categoryEnum = ["nodejs", "notion", "git"];
+const categoryEnum = ["nodejs", "notion", "git", "programming"];
 
 export const Page = defineDocumentType(() => ({
   name: "Page",
