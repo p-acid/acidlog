@@ -37,4 +37,5 @@ export const CategoryIconImage: Record<
   nodejs: "nodejs.svg",
   git: "git.svg",
   notion: "notion.png",
+  programming: "programming.svg",
 };
