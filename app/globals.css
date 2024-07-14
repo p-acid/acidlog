@@ -74,6 +74,10 @@
     @apply bg-background text-foreground;
   }
 
+  .callout-content {
+    @apply flex flex-col gap-3;
+  }
+
   .callout-content * {
     @apply !my-0;
   }

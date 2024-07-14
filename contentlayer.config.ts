@@ -82,6 +82,9 @@ export const Docs = defineDocumentType(() => ({
     description: {
       type: "string",
     },
+    thumbnail: {
+      type: "string",
+    },
     category: {
       type: "enum",
       options: categoryEnum,

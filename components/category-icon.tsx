@@ -16,7 +16,7 @@ export default function CategoryIcon({
   return (
     <Image
       className={cn(
-        "p-2 bg-zinc-900 rounded-lg my-0 dark:bg-zinc-100",
+        "p-2 bg-zinc-600 rounded-lg my-0 dark:bg-zinc-200",
         className
       )}
       src={`${Source.Image.CategoryIcon}/${

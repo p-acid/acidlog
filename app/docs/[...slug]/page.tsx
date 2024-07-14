@@ -6,6 +6,7 @@ import { allDocs } from "@/.contentlayer/generated";
 import CategoryIcon from "@/components/category-icon";
 import { Mdx } from "@/components/mdx-components";
 import { Source } from "@/lib/route";
+import Image from "next/image";
 
 interface DocProps {
   params: {
@@ -71,6 +72,16 @@ export default async function DocPage({ params }: DocProps) {
         <p className="text-lg mt-0 text-zinc-700 dark:text-zinc-300 font-normal">
           {doc.description}
         </p>
+      )}
+
+      {doc.thumbnail && (
+        <Image
+          className="w-full max-h-[400px] object-cover"
+          src={`${base}/${doc.thumbnail}`}
+          alt="thumbnail"
+          width={680}
+          height={400}
+        />
       )}
 
       <Mdx base={base} code={doc.body.code} />
