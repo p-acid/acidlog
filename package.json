@@ -12,7 +12,11 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.1.6",
     "next": "15.1.6",
+    "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -21,12 +25,14 @@
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/eslintrc": "^3",
     "@types/eslint__eslintrc": "^2.1.2",
+    "@types/mdx": "^2.0.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",
+    "gray-matter": "^4.0.3",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "postcss": "^8",

@@ -1,0 +1,1 @@
+export { contentPaths } from "./paths";
