@@ -1,1 +1,2 @@
-export { type PostMetadata } from "./post";
+export { type Content } from "./content";
+export { type PostFrontmatter } from "./post";

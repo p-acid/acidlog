@@ -1,5 +1,5 @@
 export {
-  PostContentsPage as default,
+  PostDetailPage as default,
   generateMetadata,
   generateStaticParams,
-} from "@/pages/post-contents";
+} from "@/pages/post-detail";

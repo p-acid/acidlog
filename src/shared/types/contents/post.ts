@@ -1,6 +1,7 @@
-export type PostMetadata = {
+export type PostFrontmatter = {
   title: string;
-  date: string;
   description: string;
-  thumbnail: string;
+  tags: string[];
+  draft: boolean;
+  date: string;
 };

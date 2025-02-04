@@ -62,7 +62,7 @@ API를 통해 데이터 요청을 진행하고 나니 예상치 못한 부분이
 
 간략하게 말하면 Notion은 **Block이라는 단위의 객체 형태**의 데이터로 작성된 정보를 구성하고 그래서 Markdown 기반의 콘텐츠 표현 방식보다 더 다양한 방식으로 표현할 수 있습니다. 이는 API 요청으로 전달 받은 데이터에도 동일하게 적용됩니다.
 
-<Image fileName="headache-ryu.jpeg" />
+![이미지](headache-ryu.jpeg)
 
 당시 일정이 넉넉하지 않은 상황이었기에 자체적으로 이를 직접 변환하는 방법은 제외하고 다른 방법을 찾기로 결정했습니다.
 
@@ -108,7 +108,7 @@ const n2m = new NotionToMarkdown({
 
 이제 Markdown 형태의 문자열로 변환된 해당 데이터를 활용하여 아티클 콘텐츠를 보여줄 수 있게 되었습니다. 하지만 약간의 문제가 있는데 **Notion의 모든 Block 요소들은 Markdown 형태로 변환될 수 없다**는 점입니다. 예를 들어 Notion의 Callout의 경우 다음의 형태를 갖습니다.
 
-<Image fileName="callout-example.png" />
+![이미지](callout-example.png)
 
 좌측엔 Notion에서 제공하는 아이콘 이미지 혹은 첨부 이미지를 할당할 수 있으며 우측엔 추가적인 콘텐츠를 작성할 수 있는 영역이 존재합니다. Callout 타입은 Markdown 형태로 구현하는데 어려움이 있기에 **이를 별도로 커스텀하는 과정을 추가**해야 합니다.
 
@@ -132,11 +132,11 @@ n2m.setCustomTransformer("embed", async (block) => {
 
 앞의 예시처럼 `setCustomTransformer` 를 통해 Notion Block을 Markdown 형태로 변환할 때 정한 형태로 변환할 수 있습니다. 이렇게 하면 Markdown 문법으로 구현이 불가능한 요소들도 렌더링 할 수 있습니다.
 
-<Image fileName="rendered-callout.png" />
+![이미지](rendered-callout.png)
 
 앞의 과정을 정리하면 다음과 같이 도식화 할 수 있습니다.
 
-<Image fileName="process-mermaid.png" />
+![이미지](process-mermaid.png)
 
 추가로 이번 프로젝트에선 스타일링 라이브러리로 [**Tailwindcss**](https://tailwindcss.com/)를 활용했으며 Markdown 렌더링을 위해서 [**`react-markdown`**](https://github.com/remarkjs/react-markdown) 이라는 패키지를 활용했습니다. 앞의 `react-markdown` 을 활용하면 [커스텀 컴포넌트](https://github.com/remarkjs/react-markdown?tab=readme-ov-file#use-custom-components-syntax-highlight) 기능을 통해 Markdown이 렌더링 될 때 스타일이 적용된 상태로 렌더링 될 수 있도록 처리할 수 있습니다.
 
@@ -158,7 +158,7 @@ Markdown 문법으로 표현되는 컴포넌트들은 위와 같이 스타일링
 
 앞에서 말씀드린 대로 Notion API 요청 자체가 느려서인지 유난히 페이지 렌더링 속도가 느리다고 느껴졌습니다. **초기 콘텐츠 렌더링이 느린 것은 좋은 UX를 제공하지 못하다고 판단**되어 화면 렌더링 단계까지 마친 이후에 이를 개선하기로 결정했습니다.
 
-<Image fileName="heart-heagwan.jpeg" />
+![이미지](heart-heagwan.jpeg)
 
 기존엔 [서버 컴포넌트(RSC)](https://react.dev/reference/rsc/server-components) 내부에서 직접 데이터를 요청하여 활용하는 방식을 사용했는데, 아티클 콘텐츠의 특성상 변경이 잦지 않다는 점을 감안하여 [Next.js의 정적 사이트 생성(SSG, Static Site Generation) 방식](https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation)을 활용하면 초기 렌더링 속도를 줄일 수 있을 것이라 판단하고 이를 적용하기로 결정했습니다.
 
@@ -170,7 +170,7 @@ Markdown 문법으로 표현되는 컴포넌트들은 위와 같이 스타일링
 
 이를 위해 Notion API를 활용하여 **프로젝트에 Notion 페이지들을 Markdown 형태로 다운로드 하는 스크립트**를 작성하기로 했습니다.
 
-```js
+```js fetch-md.mjs
 import fs from "fs";
 import { join } from "path";
 
@@ -301,7 +301,7 @@ ${errors.reduce((acc, cur) => acc + cur, "")}`
 
 마지막으로 스크립트 실행을 위한 명령어를 `package.json`에 정의했습니다.
 
-```json
+```json package.json
 {
   "scripts": {
     "download-notion": "rm -rf [아티클 폴더 경로] && mkdir [아티클 폴더 경로] && node fetch-md.mjs"
@@ -311,11 +311,11 @@ ${errors.reduce((acc, cur) => acc + cur, "")}`
 
 이렇게 변경하고 나서 렌더링 시간이 **약 3초 가량 줄어** 체감상 빨라진 느낌이 확 들었습니다.
 
-<Video filename="before-download.mov" />
+<Video src="before-download.mov" />
 
 반영 전에는 위와 같이 딜레이가 길게 느껴집니다.
 
-<Video filename="after-download.mov" />
+<Video src="after-download.mov" />
 
 이전보다 확실히 딜레이가 확 줄어든 느낌을 받게 됩니다. 더욱 자세히 보여주기 위해 클릭 모션도 화면에 반영했어야 했는데 없으니 클릭 타이밍이 보이지 않아 애매한 부분이 있긴 하네요.
 
@@ -365,7 +365,7 @@ const transferImgSrc = (orgSrc, blockId) => {
 
 웹에 게시를 했을 때 해당 페이지가 검색 결과에 공개되면 문제가 되었겠지만 **검색 엔진에 인덱싱 되지 않도록 선택할 수 있는 옵션**이 존재했기 때문에 이미지 경로 만을 위해 활용할 수 있었습니다.
 
-<Image fileName="notion-web-publish.png" />
+![이미지](notion-web-publish.png)
 
 ### Markdown 렌더링 중 스타일 미적용 문제
 
@@ -383,7 +383,7 @@ const transferImgSrc = (orgSrc, blockId) => {
   참고해주세요.
 </Callout>
 
-```js
+```js tailwindcss.config.mjs
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -395,8 +395,6 @@ module.exports = {
 ```
 
 이후 정상적으로 스타일링이 반영된 모습을 확인할 수 있었습니다.
-
-<br />
 
 ## 결론
 
@@ -411,4 +409,4 @@ module.exports = {
 ## 참고
 
 - [화해 블로그 : Notion API와 함께 정적 페이지로의 여정](https://blog.hwahae.co.kr/all/tech/10960)
-- [Ethan : 노션에 첨부된 이미지 URL 만료 없이 사용하기](https://weezip.treefeely.com/post/weezip-use-notion-image)
+- [Ethan : 노션에 첨부된 이미지 URL 만료 없이 사용하기](https://weezip.treefeely.com/post/weezip-use-not)

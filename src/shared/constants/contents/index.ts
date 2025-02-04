@@ -1,1 +1,1 @@
-export { contentPaths } from "./paths";
+export { contentsBases } from "./paths";

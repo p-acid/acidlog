@@ -1,15 +1,9 @@
-import path from "path";
+import { resolve } from "path";
 
 const rootDirectoryName = "contents";
 
-const contentsDirectories = {
-  posts: "posts",
-};
+export const contentsDirectoryPath = resolve(rootDirectoryName);
 
-export const contentPaths = {
-  posts: path.resolve(
-    process.cwd(),
-    rootDirectoryName,
-    contentsDirectories.posts,
-  ),
-};
+export const contentsBases = {
+  posts: "posts",
+} as const;
