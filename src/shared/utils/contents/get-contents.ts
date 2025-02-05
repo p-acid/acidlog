@@ -5,6 +5,7 @@ import { join } from "path";
 import { contentsBases } from "@/shared/constants/contents";
 import { contentsDirectoryPath } from "@/shared/constants/contents/paths";
 import { PostFrontmatter } from "@/shared/types/contents";
+import dayjs from "dayjs";
 
 interface GetContentsParams {
   base: (typeof contentsBases)[keyof typeof contentsBases];
@@ -26,5 +27,9 @@ export const getContents = ({ base }: GetContentsParams) => {
     return { slug, ...frontmatter };
   });
 
-  return contents;
+  const sortedContents = contents.sort((a, b) =>
+    dayjs(b.date).diff(dayjs(a.date)),
+  );
+
+  return sortedContents;
 };
