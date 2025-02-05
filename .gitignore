@@ -42,3 +42,6 @@ next-env.d.ts
 
 # lint
 .eslintcache
+
+# public assets
+public/assets
