@@ -46,7 +46,6 @@ const copyAssets = async () => {
         );
 
         copyFile(sourceFilePath, targetFilePath);
-        rm(sourceFilePath);
       }),
     );
   }
