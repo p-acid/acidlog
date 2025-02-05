@@ -29,7 +29,7 @@ const copyAssets = async () => {
       .filter((entry) => !entry.isDirectory())
       .map((entry) => entry.name);
     const assetFiles = files.filter((file) =>
-      /.(jpg|jpeg|png|gif|mov)$/.test(file),
+      /.(png|jpe?g|gif|svg|webp|mov)$/.test(file),
     );
 
     if (assetFiles.length === 0) continue;

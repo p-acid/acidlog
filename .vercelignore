@@ -1,0 +1,2 @@
+# 배포 시 블로그 포스트 에셋 중복 제외
+contents/posts/**/*.{png,jpg,jpeg,gif,svg,webp,mov}

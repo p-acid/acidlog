@@ -23,5 +23,12 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "contents/posts/**/*.jpg",
+    "contents/posts/**/*.jpeg",
+    "contents/posts/**/*.png",
+    "contents/posts/**/*.gif",
+    "contents/posts/**/*.mov"
+  ]
 }
