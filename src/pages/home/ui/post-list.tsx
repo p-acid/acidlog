@@ -12,17 +12,17 @@ export const PostList = () => {
       {posts.map(({ slug, title, description, date }) => (
         <li key={slug}>
           <Link
-            className="flex justify-between"
+            className="flex justify-between gap-4"
             href={`${pageRoutes.posts}/${slug}`}
           >
             <div className="flex flex-col gap-1">
               <p className="w-fit text-base font-medium text-zinc-100 hover:underline">
                 {title}
               </p>
-              <p className="text-sm text-zinc-400">{description}</p>
+              <p className="break-keep text-sm text-zinc-400">{description}</p>
             </div>
 
-            <span className="text-sm text-zinc-200">
+            <span className="whitespace-pre text-sm text-zinc-200">
               {getRelativeDate(date)}
             </span>
           </Link>
