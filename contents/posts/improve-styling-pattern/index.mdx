@@ -1,0 +1,301 @@
+---
+title: "팀에서 스타일링 방식 개선해보기"
+description: "팀 단위에서 스타일링 방식 개선하기 위한 노력과 후기"
+tags:
+  - Development
+draft: false
+date: 2025-02-07 17:13:22
+---
+
+스타일링 방식은 기술 발전과 디자인 철학의 변화에 따라 끊임없이 진화해 왔습니다. 초기 웹의 인라인 스타일에서 CSS 표준화, BEM·OOCSS 같은 방법론, 그리고 CSS-in-JS까지의 흐름을 보면, 개발자들은 보다 효율적이고 유지보수하기 쉬운 스타일링 방식을 끊임없이 모색해 왔음을 알 수 있습니다.
+
+그러한 노력의 결과인 많은 스타일링 도구들은 개발자들에게 편리함을 제공하지만, 개발자들은 **자신의 개발 환경에 맞춰** 더욱 효율적인 방식을 끊임없이 탐색하고 개선해 나갑니다. 저 또한 프로젝트를 운영하며 이에 대한 깊은 고민을 이어왔고, 그 과정과 결과를 기록으로 남겨 공유해보고자 합니다.
+
+## 개발 환경
+
+제가 속한 프론트엔드 팀에서는 TypeScript 기반의 React 프로젝트를 개발하고 있으며, 스타일링 도구로 `styled-components`를 사용하고 있습니다.
+
+<Callout type="info">
+  **[`styled-components`](https://styled-components.com/) 란**
+
+`styled-components` 는 [컴포넌트 기반
+스타일링](https://styled-components.com/docs/basics#getting-started)을
+제공하며, 동적 스타일 적용이 가능하고, [테마
+기능](https://styled-components.com/docs/advanced#theming)을 활용해 기존
+스타일 요소를 기반으로 일관된 디자인을 유지할 수 있습니다.
+
+</Callout>
+
+이번 개선 대상은 **테마 설정과 스타일링 패턴**이며, 이를 위해 직접 유틸 함수와 제네릭 타입을 정의하여 프로젝트에 적용하게 되었습니다. 테마 설정은 유지보수가 용이한 형태로 구성하는 것을 목표로 하고, 스타일링 패턴은 보다 나은 개발자 경험을 제공하는 데 초점을 맞췄습니다.
+
+## 테마 설정하기
+
+`styled-components` 에서는 기존에 정의한 `theme` 객체를 `ThemeProvider` 라는 래퍼 컴포넌트에 props로 할당하여 Context API를 통해 모든 자식 컴포넌트에서 테마를 활용할 수 있습니다.
+
+```ts styled-components-provider.tsx
+import theme from '@/styles/theme.ts'
+
+const StyledComponentsProvider = ({ children }: PropsWithChildren) => {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
+```
+
+`theme` 객체에서 주로 색(`color`)과 텍스트 스타일(`typography`)과 같은 유형의 스타일 값을 **Key-Value** 형태로 관리하게 되는데, 각 스타일을 정의하는 과정에서 몇 가지 유틸을 적용해보겠습니다.
+
+### `getFlattenThemeVariables`
+
+```ts
+type ThemeObject = Record<string, Record<number, string>>;
+
+type FlattenThemeVariables<T extends Record<string, ThemeObject>> = {
+  [K in keyof T as `${K & string}_${keyof T[K] & number}`]: T[K][keyof T[K] &
+    (string | number)];
+};
+
+const getFlattenThemeVariables = <T extends Record<string, ThemeObject>>(
+  variables: T,
+): FlattenThemeVariables<T> => {
+  const result = {} as FlattenThemeVariables<T>;
+
+  for (const variableKey in variables) {
+    for (const shadeKey in variables[variableKey]) {
+      const newKey = `${variableKey}_${shadeKey}`;
+      Object.assign(result, { [newKey]: variables[variableKey][shadeKey] });
+    }
+  }
+
+  return result;
+};
+```
+
+`getFlattenThemeVariables` 함수는 계층적인 객체 형태로 구성되어 있는 테마 변수를 평탄화 하는 유틸 함수입니다. 해당 함수는 `color` 와 `typography` 객체를 `theme` 객체로 변환하는 과정에서 활용됩니다.
+
+간단한 예시를 통해 알아보겠습니다. 가령 `red` 라는 색을 shade scale을 구분지어 사용한다면 대체로 `theme` 객체에는 `red_100` 과 같은 형태로 저장되어 관리됩니다. 이때 Key-Value 를 작성하면서 `red` 라는 접두어가 반복되며 **불필요한 반복**이 발생하고 있는 것을 확인할 수 있습니다.
+
+```ts colors.ts
+const red = {
+  red_100: /* red_100 */,
+  red_200: /* red_200 */,
+
+  ...
+
+  red_800: /* red_800 */,
+  red_900: /* red_900 */,
+} as const;
+
+const colors = {
+  ...red
+}
+```
+
+테마 객체에는 `red` 이외에 다른 색상들도 있으며 각 색상들은 동일하게 shade scale에 따라 구분됩니다. 그렇다면 각 색상 객체의 **변수명을 접두어**로 활용하고 각 필드의 키에 접두어를 추가하여 `_` 로 연결한다면 접두어를 반복적으로 작성하지 않아도 될 것 같았습니다.
+
+```ts
+const red = {
+  100: /* red_100 */,
+  200: /* red_200 */,
+
+  ...
+} as const;
+
+...
+
+const colors = {
+  ...getFlattenThemeVariables({ red, blue, green, ... })
+}
+```
+
+기존에 반복적으로 작성하던 접두어는 이제 색상 객체 변수명을 통해 정의할 수 있게 되었습니다. 해당 유틸은 **텍스트 스타일**에도 동일하게 적용할 수 있었습니다.
+
+```ts
+const body = {
+  1: `
+    font-size: ...;
+    line-height: ...;
+    letter-spacing: ...;
+  `,
+  2: `
+    font-size: ...;
+    line-height: ...;
+    letter-spacing: ...;
+  `,
+  3: `
+    font-size: ...;
+    line-height: ...;
+    letter-spacing: ...;
+  `,
+} as const;
+
+const typography = {
+  ...getFlattenThemeVariables({ body }),
+};
+```
+
+### `getTypographyWithWeight`
+
+```ts
+const weight = {
+  light: 300,
+  medium: 500,
+  bold: 700,
+} as const;
+
+type TypograpyWithWeight<T extends Record<string, string>> = {
+  [K in keyof T as `${K & string}_${keyof typeof weight}`]: T[K];
+};
+
+export const getTypographyWithWeight = <T extends Record<string, string>>(
+  typographies: T,
+) => {
+  const result = {} as TypograpyWithWeight<T>;
+
+  for (const typographyKey in typographies) {
+    const typograpyWithWeight = Object.entries(weight).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        [`${typographyKey}_${key}`]: `${typographies[typographyKey]}
+        font-weight: ${value};`,
+      }),
+      {},
+    );
+    Object.assign(result, typograpyWithWeight);
+  }
+
+  return result;
+};
+```
+
+`getTypographyWithWeight` 은 앞의 `getFlattenThemeVariables` 유틸을 통해 반환된 텍스트 스타일 객체에 `font-weight` 속성을 주입하는 유틸입니다.
+
+각 텍스트 스타일 별로 `font-weight` 를 구분지어 사용하게 되는데 이를 접미사 형태로 붙여서 관리하고자 했습니다. 예를 들어 `body_1` 스타일이 `body_1_light`, `body_1_medium`, `body_1_bold` 로 변환되는 겁니다.
+
+앞의 `getTypographyWithWeight` 는 기존에 정의된 `weight` 객체를 기반으로 각 텍스트 스타일마다 3가지 `font-weight` 를 적용한 Key-Value 값으로 변환되도록 처리해줍니다.
+
+```ts
+const typographyWithWeight = getTypographyWithWeight({
+  ...getFlattenThemeVariables({ body }),
+});
+```
+
+## 스타일링 적용하기
+
+컴포넌트 스타일을 적용하는 과정에서는 props를 통해 변경되는 분기와 `styled-components` 의 Transient Props 활용과 같은 부분을 개선하기 위한 일련을 작업을 진행했습니다.
+
+### `createVariant`
+
+```ts
+type VariantProperty = string | number | boolean | undefined;
+
+type StyledVariantProperty<P extends VariantProperty> = Exclude<
+  P extends boolean ? StringfyBoolean : P,
+  undefined
+>;
+
+type StyledVariant<
+  P extends VariantProperty,
+  Props extends ComponentProps,
+> = Record<StyledVariantProperty<P>, RuleSet<Props>>;
+
+const createVariant = <
+  P extends VariantProperty,
+  Props extends ComponentProps = {},
+>(
+  variant: StyledVariant<P, Props>,
+): ((property: VariantProperty) => RuleSet<Props>) => {
+  return (property: VariantProperty) => {
+    if (property === undefined) {
+      return css``;
+    }
+
+    if (typeof property === "boolean") {
+      return variant[String(property) as StyledVariantProperty<P>];
+    }
+
+    return variant[property as StyledVariantProperty<P>];
+  };
+};
+```
+
+특정 props로 분기되는 스타일이 있는데 한 눈에 확인하기 어려우셨던 경험이 있으실까요? 전 이를 좀 더 직관적인 구조로 확인할 수 있도록 `createVariant` 라는 유틸을 활용했습니다.
+
+해당 유틸은 객체 형태로 **분기별 스타일**을 작성할 수 있는 유틸로서, 실제 prop 값을 인자로 받아 적절한 스타일 값을 반환하는 콜백 함수를 반환합니다. 이는 아래와 같이 활용됩니다.
+
+```ts button/style.ts
+const buttonSizeVariant = createVariant<ButtonProps["size"]>({
+  sm: css`
+    border-radius: 17px;
+
+    ${({ theme }) => theme.typography.body_3_medium}
+  `,
+  lg: css`
+    border-radius: 19px;
+
+    ${({ theme }) => theme.typography.body_2_medium}
+  `,
+});
+
+export const StyledButton = styled.button<ButtonProps>`
+  ${({ size }) => buttonSizeVariant(size)}
+`;
+```
+
+해당 예제에서와 같이 제네릭 파라미터를 전달하여 정의하고자 하는 prop의 타입을 전달하고 이에 해당하는 스타일 분기를 각 객체 키 값에 맞춰 작성하면됩니다. 그렇게 반환된 함수는 실제 값에 해당하는 적절한 스타일을 반영하는 함수로서 동작하게 됩니다.
+
+이를 통해 보다 직관적인 스타일 분기 파악과 일정한 스타일 코드 작성 패턴을 갖추게 되었습니다.
+
+### `TransientProps`
+
+스타일링을 위한 prop을 전달하는 과정에서 대문자가 들어간 prop을 할당할 경우 다음 오류를 마주한 경우가 있을 겁니다.
+
+> Warning: React does not recognize the `isProp` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `isprop` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+
+이는 실제 DOM 속성에 해당하지 않는 prop이 할당되었기에 커스텀 속성을 사용하는 경우 소문자 형태로 활용하라는 오류인데, 이때 prop에 대문자가 포함된 경우를 분기하기 위해 `styled-components` 에서는 [Transient Props](https://styled-components.com/docs/api#transient-props) 이라는 기능을 추가해두었습니다.
+
+<Callout type="info">
+  **Transient Props 간략 설명**
+
+Transient Props는 `styled` 를 통해 생성된 컴포넌트에 달러 사인(`$`)이 접두어로 된 prop을 할당하게 될 경우 실제 DOM 속성으로 적용되지 않고 스타일 분기에서만 활용되도록 만드는 `styled-components` 의 내부 기능입니다.
+
+</Callout>
+
+다만 해당 기능을 사용하기 위한 별도의 제네릭 타입을 제공하지 않아 실제 prop 타입 외에 이를 정의해야 하는 수고스러움이 있습니다. 이러한 부분을 개선하기 위해 `TransientProps` 라는 제네릭 타입을 추가하여 활용하기로 했습니다.
+
+```ts
+export type TransientProps<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? `$${string & P}` : P]: T[P];
+};
+```
+
+사용법은 너무나 간단합니다. 첫 번째 인자로 전체 props 객체 타입을 전달하고 두 번째 인자로 달러 사인을 붙이고자 하는 키 값을 유니온 형태로 명시하면 결과로 Transient Props 형태가 반영된 객체 타입을 반환하게 됩니다.
+
+예시를 통해 알아봅시다.
+
+```tsx accordion/index.tsx
+export interface AccordionProps {
+  isOpen: boolean;
+}
+
+const Accordion = ({ isOpen }: AccordionProps) => {
+  return <AccordionWrapper $isOpen={isOpen}>{/* ... */}</AccordionWrapper>;
+};
+```
+
+```ts accordion/style.ts
+import { AccordionProps } from ".";
+
+type StyledAccordionProps = TransientProps<AccordionProps, "isOpen">;
+
+const AccordionWrapper = styled.div<StyledAccordionProps>`
+  /* 스타일링 구문 */
+`;
+```
+
+위 예제에서 실제로 `Accordion` 컴포넌트에 전달하는 prop은 `isOpen` 이지만 내부적으로 실제 스타일드 컴포넌트에는 달러 사인이 추가된 `$isOpen` 으로 할당되게 됩니다.
+
+## 후기
+
+매번 프로젝트를 시작하면서 프로젝트 아키텍쳐나 이러한 공용 유틸 함수 설계와 같은 작업에 시간을 쏟는 것은 미래의 나에게 더 나은 개발자 경험을 위한 투자를 한다고 생각합니다.
+
+또한 지금 적용하는 솔루션이 무조건 왕도라는 법은 없기에 추후엔 수정이 필요할 것이지만, 그럼에도 시도하지 않으면 변화는 없다는 진리는 강력하게 갖고 있는 믿음 중 하나입니다.
+
+긴 글 읽어주셔서 감사합니다.
