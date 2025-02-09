@@ -6,7 +6,7 @@ export interface CodeProps {
 
 export const Code = ({ codeblock }: CodeProps) => {
   return (
-    <div className="rounded-md border border-zinc-800 bg-zinc-900">
+    <div className="my-8 rounded-md border border-zinc-800 bg-zinc-900">
       {codeblock.meta && (
         <div className="border-b border-zinc-800 px-4 py-3 font-mono text-xs">
           {codeblock.meta}
