@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog 351",
+  title: "351 Blog",
   description: "프론트엔드 개발을 하고 있는 박산성의 블로그입니다.",
 };
 
