@@ -1,4 +1,5 @@
 import { contentsBases } from "@/shared/constants/contents";
+import { PostFrontmatter } from "@/shared/types/contents";
 import {
   NextGenerateMetadata,
   NextGenerateStaticParams,
@@ -9,7 +10,7 @@ import { PostDetailPageParams } from "../ui";
 export const generateStaticParams: NextGenerateStaticParams<
   PostDetailPageParams
 > = async () => {
-  const posts = getContents({ base: contentsBases.posts });
+  const posts = getContents<PostFrontmatter>({ base: contentsBases.posts });
   return posts.map(({ slug }) => ({ slug }));
 };
 
@@ -18,9 +19,9 @@ export const generateMetadata: NextGenerateMetadata<
 > = async ({ params }) => {
   const { slug } = await params;
 
-  const frontmatter = getContents({ base: contentsBases.posts }).find(
-    (post) => post.slug === slug,
-  );
+  const frontmatter = getContents<PostFrontmatter>({
+    base: contentsBases.posts,
+  }).find((post) => post.slug === slug);
 
   if (!frontmatter) {
     return {};

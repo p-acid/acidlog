@@ -4,14 +4,15 @@ import { join } from "path";
 
 import { contentsBases } from "@/shared/constants/contents";
 import { contentsDirectoryPath } from "@/shared/constants/contents/paths";
-import { PostFrontmatter } from "@/shared/types/contents";
-import dayjs from "dayjs";
+import { FrontmatterBase } from "@/shared/types/contents/content";
 
 interface GetContentsParams {
   base: (typeof contentsBases)[keyof typeof contentsBases];
 }
 
-export const getContents = ({ base }: GetContentsParams) => {
+export const getContents = <F extends FrontmatterBase>({
+  base,
+}: GetContentsParams) => {
   const path = join(contentsDirectoryPath, base);
 
   const slugs = readdirSync(path, { withFileTypes: true })
@@ -22,14 +23,10 @@ export const getContents = ({ base }: GetContentsParams) => {
     const contentsPath = join(path, slug, "index.mdx");
     const file = readFileSync(contentsPath, { encoding: "utf8" });
     const { data } = matter(file);
-    const frontmatter = data as PostFrontmatter;
+    const frontmatter = data as F;
 
     return { slug, ...frontmatter };
   });
 
-  const sortedContents = contents.sort((a, b) =>
-    dayjs(b.date).diff(dayjs(a.date)),
-  );
-
-  return sortedContents;
+  return contents;
 };

@@ -1,15 +1,19 @@
 import { contentsBases } from "@/shared/constants/contents";
 import { pageRoutes } from "@/shared/constants/page-routes";
+import { PostFrontmatter } from "@/shared/types/contents";
 import { getContents } from "@/shared/utils/contents";
 import { getRelativeDate } from "@/shared/utils/get-relative-date";
+import dayjs from "dayjs";
 import Link from "next/link";
 
 export const PostList = () => {
-  const posts = getContents({ base: contentsBases.posts });
+  const posts = getContents<PostFrontmatter>({ base: contentsBases.posts });
+
+  const sortedPosts = posts.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
 
   return (
     <ul className="space-y-5">
-      {posts.map(({ slug, title, description, date }) => (
+      {sortedPosts.map(({ slug, title, description, date }) => (
         <li key={slug}>
           <Link
             className="flex justify-between gap-4"

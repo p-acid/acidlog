@@ -17,7 +17,7 @@ export const RootLayout = ({
   return (
     <html lang="ko" style={{ colorScheme: "dark" }}>
       <body className="flex justify-center">
-        <main className="my-8 w-full max-w-screen-sm space-y-8 px-4">
+        <main className="my-8 w-full max-w-screen-sm space-y-8 px-4 max-sm:my-6">
           <Navigation />
           {children}
         </main>

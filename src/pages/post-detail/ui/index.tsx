@@ -1,7 +1,9 @@
+import dayjs from "dayjs";
+
 import { contentsBases } from "@/shared/constants/contents";
+import { PostFrontmatter } from "@/shared/types/contents";
 import { NextPageProps } from "@/shared/types/nextjs";
 import { getContent } from "@/shared/utils/contents";
-import dayjs from "dayjs";
 
 export type PostDetailPageParams = {
   slug: string;
@@ -12,7 +14,7 @@ export const PostDetailPage = async ({
 }: NextPageProps<PostDetailPageParams>) => {
   const { slug } = await params;
 
-  const { frontmatter, MDX } = await getContent({
+  const { frontmatter, MDX } = await getContent<PostFrontmatter>({
     base: contentsBases.posts,
     slug,
   });
