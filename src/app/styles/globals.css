@@ -13,4 +13,11 @@
   body {
     @apply break-all bg-background;
   }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply break-keep;
+  }
 }
