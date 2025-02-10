@@ -13,8 +13,8 @@ const CALLOUT_STYLES = {
   },
   info: {
     icon: InfoIcon,
-    color: "*:fill-green-600",
-    background: "bg-green-950",
+    color: "*:fill-sky-600",
+    background: "bg-sky-950",
   },
   warning: {
     icon: WarningIcon,

@@ -31,9 +31,7 @@ export const PostDetailPage = async ({
           ))}
         </ul>
 
-        <h1 className="mb-3 text-3xl font-bold max-sm:text-2xl">
-          {frontmatter.title}
-        </h1>
+        <h1 className="mb-3 text-3xl font-bold">{frontmatter.title}</h1>
 
         <span className="text-base max-sm:text-sm">
           {dayjs(frontmatter.date).format("YYYY년 MM월 DD일")}
