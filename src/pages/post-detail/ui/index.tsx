@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-import { contentsBases } from "@/shared/constants/contents";
+import { contentsBases } from "@/shared/constants/paths";
 import { PostFrontmatter } from "@/shared/types/contents";
 import { NextPageProps } from "@/shared/types/nextjs";
 import { getContent } from "@/shared/utils/contents";

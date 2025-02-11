@@ -1,4 +1,4 @@
-import { contentsBases } from "@/shared/constants/contents";
+import { contentsBases } from "@/shared/constants/paths";
 import { Content } from "@/shared/types/contents";
 import { FrontmatterBase } from "@/shared/types/contents/content";
 

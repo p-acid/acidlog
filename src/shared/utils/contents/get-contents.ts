@@ -2,8 +2,7 @@ import { readdirSync, readFileSync } from "fs";
 import matter from "gray-matter";
 import { join } from "path";
 
-import { contentsBases } from "@/shared/constants/contents";
-import { contentsDirectoryPath } from "@/shared/constants/contents/paths";
+import { contentsBases, contentsDirectoryPath } from "@/shared/constants/paths";
 import { FrontmatterBase } from "@/shared/types/contents/content";
 
 interface GetContentsParams {

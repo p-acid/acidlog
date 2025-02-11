@@ -1,5 +1,5 @@
-import { contentsBases } from "@/shared/constants/contents";
 import { pageRoutes } from "@/shared/constants/page-routes";
+import { contentsBases } from "@/shared/constants/paths";
 import { PostFrontmatter } from "@/shared/types/contents";
 import { getContents } from "@/shared/utils/contents";
 import { getRelativeDate } from "@/shared/utils/get-relative-date";

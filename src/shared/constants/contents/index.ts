@@ -1,1 +1,0 @@
-export { contentsBases } from "./paths";

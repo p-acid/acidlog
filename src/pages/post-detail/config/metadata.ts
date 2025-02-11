@@ -1,4 +1,4 @@
-import { contentsBases } from "@/shared/constants/contents";
+import { contentsBases } from "@/shared/constants/paths";
 import { PostFrontmatter } from "@/shared/types/contents";
 import {
   NextGenerateMetadata,
