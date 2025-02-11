@@ -5,7 +5,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
-import remarkPublicAsseets from "./scripts/remark-public-assets.mjs";
+import remarkPublicAssets from "./scripts/remark-public-assets.mjs";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
@@ -29,7 +29,7 @@ const withMDX = createMDX({
       remarkFrontmatter,
       remarkMdxFrontmatter,
       remarkGfm,
-      remarkPublicAsseets,
+      remarkPublicAssets,
       [remarkCodeHike, codehikeConfig],
     ],
     recmaPlugins: [[recmaCodeHike, codehikeConfig]],
