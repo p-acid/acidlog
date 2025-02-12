@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import { join } from "path";
 
 import { contentsBases, contentsDirectoryPath } from "@/shared/constants/paths";
-import { FrontmatterBase } from "@/shared/types/contents/content";
+import { FrontmatterBase } from "@/shared/types/contents";
 
 interface GetContentsParams {
   base: (typeof contentsBases)[keyof typeof contentsBases];

@@ -1,6 +1,5 @@
 import { contentsBases } from "@/shared/constants/paths";
-import { Content } from "@/shared/types/contents";
-import { FrontmatterBase } from "@/shared/types/contents/content";
+import { Content, FrontmatterBase } from "@/shared/types/contents";
 
 interface GetContentParams {
   base: (typeof contentsBases)[keyof typeof contentsBases];
@@ -14,7 +13,7 @@ export const getContent = async <F extends FrontmatterBase>(
     `/contents/${params.base}/${params.slug}/index.mdx`
   );
 
-  const { frontmatter, default: MDX } = result;
+  const { frontmatter, default: MDX, toc } = result;
 
-  return { frontmatter, MDX };
+  return { frontmatter, MDX, toc };
 };
