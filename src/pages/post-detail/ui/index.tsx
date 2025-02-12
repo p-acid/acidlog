@@ -4,6 +4,7 @@ import { contentsBases } from "@/shared/constants/paths";
 import { PostFrontmatter } from "@/shared/types/contents";
 import { NextPageProps } from "@/shared/types/nextjs";
 import { getContent } from "@/shared/utils/contents";
+import { Toc } from "./toc";
 
 export type PostDetailPageParams = {
   slug: string;
@@ -14,13 +15,13 @@ export const PostDetailPage = async ({
 }: NextPageProps<PostDetailPageParams>) => {
   const { slug } = await params;
 
-  const { frontmatter, MDX } = await getContent<PostFrontmatter>({
+  const { frontmatter, MDX, toc } = await getContent<PostFrontmatter>({
     base: contentsBases.posts,
     slug,
   });
 
   return (
-    <section className="prose prose-invert mt-6 w-full">
+    <section className="prose prose-invert relative mt-6 w-full">
       <div className="mb-8 border-b border-zinc-800 pb-6">
         <ul className="mb-6 mt-0 flex list-none gap-2 pl-0">
           {frontmatter.tags.map((tag) => (
@@ -39,6 +40,8 @@ export const PostDetailPage = async ({
           {dayjs(frontmatter.date).format("YYYY년 MM월 DD일")}
         </span>
       </div>
+
+      <Toc toc={toc} />
 
       <MDX />
     </section>
